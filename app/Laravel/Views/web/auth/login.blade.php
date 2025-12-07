@@ -6,6 +6,7 @@
         <meta charset="utf-8" />
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
 
         <!-- Layout config Js -->
         {{-- <script src="{{asset('assets/js/layout.js')}}"></script> --}}
@@ -102,7 +103,6 @@
                 </label>
                 </div>
                 <button class="w-100 btn btn-lg btn-secondary" type="submit">Sign in</button>
-                {{-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p> --}}
             </form>
         </main>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Laravel\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        dd("welcome!");
         return view('home');
+    }
+
+    public function welcome()
+    {
+        return view('welcome');
     }
 }
