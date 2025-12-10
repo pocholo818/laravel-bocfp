@@ -66,8 +66,9 @@
                                 <form class="theme-form" method="POST">
                                     <div class="text-center">
                                         <h4>Magandang Araw!</h4>
-                                        <p>Enter your email & password to login</p>
+                                        <p class="mb-3">Enter your email & password to login</p>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="col-form-label">Email Address</label>
                                         <input class="form-control" type="text" name="email" placeholder="e.g. juan123@gmail.com">
