@@ -14,23 +14,23 @@
         <!-- Layout config Js -->
         <script src="{{asset('assets/js/layout.js')}}"></script>
         <!-- Font Awesome-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/fontawesome.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/fontawesome.css')}}">
         <!-- ico-font-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/vendors/icofont.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/vendors/icofont.css')}}">
         <!-- Themify icon-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/vendors/themify.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/vendors/themify.css')}}">
         <!-- Flag icon-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/vendors/flag-icon.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/vendors/flag-icon.css')}}">
         <!-- Feather icon-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/vendors/feather-icon.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/vendors/feather-icon.css')}}">
         <!-- Plugins css start-->
         <!-- Bootstrap css-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/vendors/bootstrap.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/vendors/bootstrap.css')}}">
         <!-- App css-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/style.css')}}">
-        <link id="color" rel="stylesheet" href="{{asset('assets/web/css/color-1.css')}}" media="screen">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/style.css')}}">
+        <link id="color" rel="stylesheet" href="{{asset('assets/backoffice/css/color-1.css')}}" media="screen">
         <!-- Responsive css-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/responsive.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/responsive.css')}}">
 
         <style>
             .btn-secondary{
@@ -61,7 +61,7 @@
                                 </a>
                             </div>
                             <div class="login-main">
-                                @include('web._components.notifications')
+                                @include('backoffice._components.notifications')
 
                                 <form class="theme-form" method="POST">
                                     <div class="text-center">
@@ -103,20 +103,20 @@
             </div>
             
             <!-- latest jquery-->
-            <script src="{{asset('assets/web/js/jquery.min.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/jquery.min.js')}}"></script>
             <!-- Bootstrap js-->
-            <script src="{{asset('assets/web/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
             <!-- feather icon js-->
-            <script src="{{asset('assets/web/js/icons/feather-icon/feather.min.js')}}"></script>
-            <script src="{{asset('assets/web/js/icons/feather-icon/feather-icon.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/icons/feather-icon/feather.min.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/icons/feather-icon/feather-icon.js')}}"></script>
             <!-- scrollbar js-->
-            <script src="{{asset('assets/web/js/scrollbar/simplebar.min.js')}}"></script>
-            <script src="{{asset('assets/web/js/scrollbar/custom.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/scrollbar/simplebar.min.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/scrollbar/custom.js')}}"></script>
             <!-- Sidebar jquery-->
-            <script src="{{asset('assets/web/js/config.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/config.js')}}"></script>
             <!-- Theme js-->
-            <script src="{{asset('assets/web/js/script.js')}}"></script>
-            <script src="{{asset('assets/web/js/script1.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/script.js')}}"></script>
+            <script src="{{asset('assets/backoffice/js/script1.js')}}"></script>
         </div>
         <!-- end auth-page-wrapper -->
     </body>

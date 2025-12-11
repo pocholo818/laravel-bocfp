@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-$namespace = "App\Laravel\Controllers";
+$namespace = "App\Laravel\Controllers\Backoffice";
 
+/*
+    still conflicted to whether name it as web or backoffice
+*/
 Route::group(['as' => "web.",
     'namespace' => $namespace,
     'middleware' => ["web"]
 ],function() {
     Route::get('/',['as' => "index", 'uses' => "HomeController@welcome"]);
-    // Route::get('home',['as' => "home", 'uses' => "HomeController@home"]);
 
-    include_once app_path('Laravel/Routes/Web/Auth.php');
+    include_once app_path('Laravel/Routes/Backoffice/Auth.php');
 });

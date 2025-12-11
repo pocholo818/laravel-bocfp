@@ -9,7 +9,20 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "laravel/ui": "^4.6"
+        "laravel/ui": "^4.6",
+        "anhskohbo/no-captcha": "^3.7",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltoimage-i386": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-i386": "0.12.x",
+        "intervention/image": "^2.7",
+        "barryvdh/laravel-snappy": "^1.0",
+        "maatwebsite/excel": "^3.1",
+        "propaganistas/laravel-phone": "^5.0",
+        "simplesoftwareio/simple-qrcode": "^4.0",
+        "spatie/laravel-fractal": "^6.0",
+        "spatie/laravel-html": "^3.12",
+        "spatie/laravel-permission": "^6.21"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -30,7 +43,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Laravel/Services/globals.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [
