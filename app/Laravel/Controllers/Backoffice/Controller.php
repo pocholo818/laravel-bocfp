@@ -7,6 +7,7 @@ namespace App\Laravel\Controllers\Backoffice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Route;
 
 class Controller extends BaseController
 {
