@@ -21,7 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Str, DB;
 
-class AdminController extends Controller
+class MainController extends Controller
 {
     protected $data;
 

@@ -10,8 +10,16 @@ Route::group(['as' => "backoffice.",
     'namespace' => $namespace,
     'middleware' => ["web"]
 ],function() {
-    Route::get('/',['as' => "index", 'uses' => "HomeController@index"]);
-
+    
     include_once app_path('Laravel/Routes/Backoffice/Auth.php');
-    include_once app_path('Laravel/Routes/Backoffice/Admin.php');
+
+    // Route::group(['middleware' => "backoffice.auth"], function(){
+        // Route::group(['as' => "auth."], function () {
+        //     Route::get('logout', ['as' => "logout", 'uses' => "AuthenticationController@logout"]);
+        // });
+
+        Route::get('/',['as' => "index", 'uses' => "MainController@index"]);
+        
+        include_once app_path('Laravel/Routes/Backoffice/Admin.php');
+    // });
 });
