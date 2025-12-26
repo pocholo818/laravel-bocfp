@@ -62,7 +62,6 @@
                             </div>
                             <div class="login-main">
                                 @include('backoffice._components.notifications')
-
                                 <form class="theme-form" method="POST">
                                     <div class="text-center">
                                         <h4>Magandang Araw!</h4>

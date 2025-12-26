@@ -38,7 +38,7 @@
                         </li> --}}
 
                         <li>
-                            <a href="{{-- route('backoffice.auth.logout') --}}">
+                            <a href="{{ route('backoffice.auth.logout')}}">
                                 <i data-feather="log-in"></i>
                                 <span>Log out</span>
                             </a>
