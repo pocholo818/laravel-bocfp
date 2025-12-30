@@ -32,21 +32,14 @@ use Str, DB, Auth, Hash;
 
 class AuthenticationController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
-        // $this->middleware('auth');
+        parent::__construct();
+        array_merge($this->data?:[], parent::get_data());
+        $this->data['page_title'] .= " Login";
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function login(PageRequest $request)
     {
         return view('backoffice.auth.login');

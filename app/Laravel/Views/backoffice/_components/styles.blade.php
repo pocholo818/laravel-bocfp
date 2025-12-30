@@ -75,7 +75,7 @@
     }
 
     .table-primary, th {
-        --bs-table-bg: #0032A0 !important;
+        --bs-table-bg: #5e3f00 !important;
         color: #fff !important;
     }
 
@@ -202,5 +202,35 @@
         opacity: 1;
         visibility: visible;
         transform: translateY(0px);
+    }
+
+    .btn-secondary{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+        color: white!important;
+    }
+
+    .btn-secondary:hover{
+        background-color: #2EB62C!important;
+        border-color: #2EB62C!important;
+        color: white!important;
+    }
+
+    .badge, .bg-secondary{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+        color: white!important;
+    }
+
+    .flatpickr-day.selected{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+        color: white!important;
+    }
+
+    .flatpickr-day.selected:hover{
+        background-color: #2EB62C!important;
+        border-color: #2EB62C!important;
+        color: white!important;
     }
 </style>

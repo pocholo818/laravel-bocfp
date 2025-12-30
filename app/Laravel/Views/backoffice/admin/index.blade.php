@@ -38,20 +38,20 @@
                 </div>
                 <div class="col-md-2">
                     <label class="form-label">Status</label>
-                    {!! html()->select('status', $statuses)->id('input_status')->class('form-control') !!}
+                    {!! html()->select('status', $statuses, $selected_status)->id('input_status')->class('form-control') !!}
                 </div>
                 <div class="col-md-2">
                     <label class="form-label">From</label>
-                    <input type="text" class="form-control date-input" id="input_start_date" value="{{ now()->subMonths(1)->format('m/d/y') }}" name="start_date" data-date-format="m/d/Y" data-default-date="{{ now()->subMonths(1)->format('m/d/y') }}">
+                    <input type="text" class="form-control date-input" id="input_start_date" value="{{ $start_date }}" name="start_date" data-date-format="m/d/Y" data-default-date="{{ $start_date }}">
                 </div>
                 <div class="col-md-2">
                     <label class="form-label">To</label>
-                    <input type="text" class="form-control date-input" id="input_end_date" value="{{ now()->format('m/d/y') }}" name="end_date" 
-                        data-date-format="m/d/Y" data-default-date="{{ now()->format('m/d/y') }}">
+                    <input type="text" class="form-control date-input" id="input_end_date" value="{{ $end_date }}" name="end_date" 
+                        data-date-format="m/d/Y" data-default-date="{{ $end_date }}">
                 </div>
 
                 <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Apply Filter</button>
+                    <button class="btn btn-secondary" type="submit">Apply Filter</button>
                     <a href="{{ route('backoffice.admin.index') }}" class="btn btn-light" type="submit">Reset Filter</a>
                 </div>
             </form>
@@ -81,26 +81,26 @@
                 {{-- Desktop view --}}
                 <div class="d-none d-md-flex gap-2">
                     {{-- @if($auth->canAny(['backoffice.admin.create'],'admin')) --}}
-                        <a href="{{-- route('backoffice.admin.create') --}}" class="btn btn-primary" type="submit">Add User</a>
+                        <a href="{{-- route('backoffice.admin.create') --}}" class="btn btn-secondary" type="submit"><i class="fa-solid fa-plus"></i> Add New Admin</a>
                     {{-- @endif --}}
                     {{-- @if($auth->canAny(['backoffice.admin.export'],'admin')) --}}
-                        <a type="button" class="btn btn-primary btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
-                        <a type="button" class="btn btn-secondary btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a>
+                        {{-- <a type="button" class="btn btn-secondary btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
+                        <a type="button" class="btn btn-secondary btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a> --}}
                     {{-- @endif --}}
                 </div>
                 
                 {{-- Mobile view --}}
                 <div class="d-md-none">
                     <div class="btn-group" role="group">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                         <ul class="dropdown-menu">
                             <li> 
                                 {{-- @if($auth->canAny(['backoffice.admin.create'],'admin')) --}}
-                                    <a href="{{-- route('backoffice.admin.create') --}}" class="dropdown-item active">Add User</a>
+                                    <a href="{{-- route('backoffice.admin.create') --}}" class="dropdown-item active">Add New Admin</a>
                                 {{-- @endif --}}
                                 {{-- @if($auth->canAny(['backoffice.admin.export'],'admin')) --}}
-                                    <a type="button" class="dropdown-item active btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
-                                    <a type="button" class="dropdown-item active btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a>
+                                    {{-- <a type="button" class="dropdown-item active btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
+                                    <a type="button" class="dropdown-item active btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a> --}}
                                 {{-- @endif --}}
                             </li>
                         </ul>
@@ -109,65 +109,65 @@
                 
             </div>
         </div>
-        <div class="table-responsive custom-scrollbar">
-        <table class="table table-striped">
-            <thead class="tbl-strip-thad-bdr">
-            <tr>
-                <th scope="col" width="15%">Name</th>
-                <th scope="col" width="15%">Email</th>
-                <th scope="col" width="10%">Role</th>
-                <th scope="col" width="5%">Status</th>
-                <th scope="col" width="10%">Last Login</th>
-                <th scope="col" width="10%">Date Registered</th>
-                <th scope="col" width="10%"></th>
-            </tr>
-            </thead>
-            <tbody>
-                {{-- @forelse ($records as $index => $record)
-                    <tr>
-                        <td><a href="{{route('backoffice.admin.show', $record->id)}}" class="text-decoration-underline">{{ nice_display($record->name) }}</a></td>
-                        <td class="text-lowercase">{{ $record->email }}</td>
-                        <td>{{ nice_display($record->type) }}</td>
-                        <td>
-                            <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
-                        </td>
-                        <td>{{ $record->last_login_at ? $record->last_login_at ->format('m/d/Y h:i A') : "---" }}</td>
-                        <td>{{ $record->created_at->format('m/d/Y h:i A') }}</td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item active" href="{{ route('backoffice.admin.show', $record->id) }}">View Details</a>
-                                    @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active")
-                                        <li><a class="dropdown-item active" href="{{route('backoffice.admin.edit', $record->id)}}">Edit Details</a></li>
-                                        <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li>
-                                    @endif
-                                    @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
-                                        <li><a class="dropdown-item active btn-update-status" href="#" data-status="{{ $record->status }}" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a></li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center">No Record found.</td>
-                    </tr>
-                @endforelse --}}
-
+        <div>
+            <table class="table table-striped table-responsive custom-scrollbar">
+                <thead class="tbl-strip-thad-bdr">
                 <tr>
-                    <td colspan="7" class="text-center">No Record found.</td>
+                    <th scope="col" width="15%">Name</th>
+                    <th scope="col" width="15%">Email</th>
+                    {{-- <th scope="col" width="10%">Role</th> --}}
+                    <th scope="col" width="5%">Status</th>
+                    <th scope="col" width="10%">Last Login</th>
+                    <th scope="col" width="10%">Date Registered</th>
+                    <th scope="col" width="10%"></th>
                 </tr>
-        </tbody>
-        </table>
-        
-        <!-- pagination -->
-        {{-- @if($records->total() > 0)
-            <nav class="m-3">
-                <p>Showing <strong>{{$records->firstItem()}}</strong> to <strong>{{$records->lastItem()}}</strong> of <strong>{{$records->total()}}</strong> entries</p>
-                {!!$records->appends(request()->query())->render()!!}
-            </nav>
-        @endif --}}
+                </thead>
+                <tbody>
+                    @forelse ($records as $index => $record)
+                        <tr>
+                            <td><a href="{{route('backoffice.admin.show', $record->id)}}" class="text-decoration-underline">{{ nice_display($record->name) }}</a></td>
+                            <td class="text-lowercase">{{ $record->email }}</td>
+                            {{-- <td>{{ nice_display($record->type) }}</td> --}}
+                            <td>
+                                <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
+                            </td>
+                            <td>{{ $record->last_login_at ? $record->last_login_at->format('m/d/Y h:i A') : "---" }}</td>
+                            <td>{{ $record->created_at->format('m/d/Y h:i A') }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item active" href="{{ route('backoffice.admin.show', $record->id) }}">View Details</a>
+                                        {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active")
+                                            <li><a class="dropdown-item active" href="{{route('backoffice.admin.edit', $record->id)}}">Edit Details</a></li>
+                                            <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li>
+                                        @endif --}}
+                                        {{-- @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
+                                            <li><a class="dropdown-item active btn-update-status" href="#" data-status="{{ $record->status }}" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a></li>
+                                        @endif --}}
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">No Record found.</td>
+                        </tr>
+                    @endforelse
+
+                    {{-- <tr>
+                        <td colspan="7" class="text-center">No Record found.</td>
+                    </tr> --}}
+            </tbody>
+            </table>
+            
+            <!-- pagination -->
+            @if($records->total() > 0)
+                <nav class="m-3">
+                    <p>Showing <strong>{{$records->firstItem()}}</strong> to <strong>{{$records->lastItem()}}</strong> of <strong>{{$records->total()}}</strong> entries</p>
+                    {!!$records->appends(request()->query())->render()!!}
+                </nav>
+            @endif
         </div>
     </div>
 </div>
@@ -181,11 +181,11 @@
     });
     
     $(function(){ 
-        $('#input_status option:first').text('-- All Status --');
+        $('#input_status option:first').text('-- All --');
     });
 
     $(function(){ 
-        $('#input_role option:first').text('-- All Role --');
+        $('#input_role option:first').text('-- All --');
     });
 
     $(".btn-export").on('click', function(){

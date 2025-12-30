@@ -10,5 +10,5 @@ Route::group(['prefix'=>"admin", 'as'=>"admin.", 'controller'=>"AdminController"
     // Route::get('reset-password/{admin_id?}', ['as'=> 'reset_password', 'uses'=>"AdminController@update_password",'middleware' => "backoffice.permission:backoffice.admin.reset_password"]);
     // // Route::post('change-password/{admin_id?}', ['uses'=>"AdminController@update_password"]);
     // Route::get('update-status/{admin_id?}',['as'=>"update_status", 'uses'=>"AdminController@update_status",'middleware' => "backoffice.permission:backoffice.admin.update_status"]);
-    // Route::get('{admin_id}',['as'=>"show", 'uses'=>"AdminController@show",'middleware' => "backoffice.permission:backoffice.admin.index"]);
+    Route::get('{admin_id}',['as'=>"show", 'uses'=>"AdminController@show"/*,'middleware' => "backoffice.permission:backoffice.admin.index"*/]);
 });
