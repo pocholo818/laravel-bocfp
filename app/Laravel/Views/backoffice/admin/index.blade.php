@@ -81,7 +81,7 @@
                 {{-- Desktop view --}}
                 <div class="d-none d-md-flex gap-2">
                     {{-- @if($auth->canAny(['backoffice.admin.create'],'admin')) --}}
-                        <a href="{{-- route('backoffice.admin.create') --}}" class="btn btn-secondary" type="submit"><i class="fa-solid fa-plus"></i> Add New Admin</a>
+                        <a href="{{ route('backoffice.admin.create') }}" class="btn btn-secondary" type="submit"><i class="fa-solid fa-plus"></i> Add New Admin</a>
                     {{-- @endif --}}
                     {{-- @if($auth->canAny(['backoffice.admin.export'],'admin')) --}}
                         {{-- <a type="button" class="btn btn-secondary btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>

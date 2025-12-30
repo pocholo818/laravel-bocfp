@@ -100,6 +100,55 @@ class AdminController extends Controller
 		return view('backoffice.admin.show', $this->data);
 	}
 
+    public function create(PageRequest $request){
+        $this->data['page_title'] = " Create Admin";
+
+        return view('backoffice.admin.create', $this->data);
+    }
+
+    public function store(AdminRequest $request){
+        DB::beginTransaction();
+
+        try{
+            $password = Str::random(8);
+
+            $admin = new Admin();
+            $admin->name = trim("{$request->input('name')}");
+            $admin->email = $request->input('email');
+            // $admin->username = $request->input('username');
+            $admin->contact_number = $request->input('contact_number');
+            // $admin->type = $request->input('type');
+            // $admin->role_id = $user_role->id;
+            // $admin->role = $user_role->name;
+            $admin->password = bcrypt($password );
+            $admin->status = $request->input('status');
+            $admin->save();
+
+            $admin->assignRole($user_role);
+
+            if (env( 'EMAIL_SERVICE', false)) {
+                $data = [
+                    'admin' => $admin,
+                    'password_plain' => $password,
+                    'link' => route('backoffice.auth.login'),
+                    'web_link' => route('web.home'),
+                ];
+
+                Mail::to($admin->email)->send(new AdminCreated($data));
+            }
+
+            DB::commit();
+            session()->flash('notification-status', 'success');
+            session()->flash('notification-msg', "Admin created successfully.");
+            return redirect()->route('backoffice.admin.index');
+        }catch(\Exception $e){ 
+            DB::rollback();
+            session()->flash('notification-status', 'failed');
+            session()->flash('notification-msg', "Server Error: Code #{$e->getLine()}");
+            return redirect()->back();
+        }
+    }
+
     public function update_status(PageRequest $request, $admin_id = NULL){
         $admin = User::find($admin_id);
 

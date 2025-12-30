@@ -19,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 // \App\Laravel\Middlewares\TrimStrings::class,
                 // \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
                 // \App\Laravel\Middlewares\TransformInput::class,
-                // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+                \Illuminate\Session\Middleware\StartSession::class,
+                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
                 // \App\Laravel\Middlewares\Backoffice\CheckUserRoleStatus::class,
 
                 \Illuminate\Session\Middleware\StartSession::class,

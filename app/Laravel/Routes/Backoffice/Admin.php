@@ -2,8 +2,8 @@
 
 Route::group(['prefix'=>"admin", 'as'=>"admin.", 'controller'=>"AdminController"], function(){
     Route::get('/',['as'=>"index", 'uses'=>"index"/*,'middleware' => "backoffice.permission:backoffice.admin.index"*/]);
-    // Route::get('create',['as'=>"create", 'uses'=>"AdminController@create",'middleware' => "backoffice.permission:backoffice.admin.create"]);
-    // Route::post('create',['uses'=>"AdminController@store",'middleware' => "backoffice.permission:backoffice.admin.create"]);
+    Route::get('create',['as'=>"create", 'uses'=>"AdminController@create"/*,'middleware' => "backoffice.permission:backoffice.admin.create"*/]);
+    Route::post('create',['uses'=>"AdminController@store"/*,'middleware' => "backoffice.permission:backoffice.admin.create"*/]);
     // Route::get('edit/{admin_id?}',['as'=>"edit", 'uses'=>"AdminController@edit",'middleware' => "backoffice.permission:backoffice.admin.edit"]);
     // Route::post('edit/{admin_id?}',['uses'=>"AdminController@update",'middleware' => "backoffice.permission:backoffice.admin.edit"]);
     // Route::post('export', ['as'=> 'export', 'uses'=>"AdminController@export",'middleware' => "backoffice.permission:backoffice.admin.export"]);
