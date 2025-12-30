@@ -25,7 +25,7 @@
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/backoffice/css/responsive.css')}}">
 <!-- sweet alert Css-->
-<link href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/backoffice/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- Put JQUERY and Bootstrap js file here-->
 <style>
 
@@ -106,11 +106,6 @@
         height: auto;
         border-radius: 4px;
         margin-bottom: 10px;
-    }
-
-    /* swal/sweetalert */
-    .swal2-container .swal2-actions .swal2-confirm {
-        background-color: #0032A0 !important;
     }
 
     /* BUSINESS PROFILE */
@@ -216,7 +211,7 @@
         color: white!important;
     }
 
-    .badge, .bg-secondary{
+    .badge .bg-secondary{
         background-color: #5e3f00!important;
         border-color: #5e3f00!important;
         color: white!important;
@@ -232,5 +227,19 @@
         background-color: #2EB62C!important;
         border-color: #2EB62C!important;
         color: white!important;
+    }
+
+    .alert-success{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+    }
+
+    /* swal/sweetalert */
+    .swal2-container .swal2-actions .swal2-confirm {
+        background-color: #5e3f00 !important;
+    }
+
+    .swal2-container .swal2-actions .swal2-confirm:hover{
+        background-color: #2EB62C !important;
     }
 </style>

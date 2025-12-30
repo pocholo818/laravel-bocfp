@@ -99,4 +99,21 @@ class AdminController extends Controller
 
 		return view('backoffice.admin.show', $this->data);
 	}
+
+    public function update_status(PageRequest $request, $admin_id = NULL){
+        $admin = User::find($admin_id);
+
+        if(!$admin){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->back();
+        }
+
+        $admin->status = $admin->status == "active" ? "inactive" : "active";
+        $admin->save();
+
+        session()->flash('notification-status', 'success');
+        session()->flash('notification-msg', "Record updated successfully.");
+		return redirect()->back();
+	}
 }

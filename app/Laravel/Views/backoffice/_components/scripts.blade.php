@@ -27,7 +27,7 @@
 <script src="{{asset('assets/backoffice/js/flat-pickr/custom-flatpickr.js')}}"></script>
 
  <!-- Sweet Alerts js -->
- <script src="{{asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+ <script src="{{asset('assets/backoffice/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <!-- Theme js-->
 <script src="{{asset('assets/backoffice/js/script.js')}}"></script>

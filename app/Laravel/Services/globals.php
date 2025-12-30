@@ -222,13 +222,13 @@ if( !function_exists('status_badge') ){
             case 'for_correction':
             case 'rejected':
             case 'closed':
+            case 'inactive': 
             case 'declined': $result = "danger";
                 break;
             case 'for_approval':
             case 'ongoing': $result = "info";
                 break;
-            case 'submitted' :
-            case 'inactive': $result = "secondary";
+            case 'submitted' : $result = "secondary";
                 break;
             case 'endorsed':
             case 'for_review':
