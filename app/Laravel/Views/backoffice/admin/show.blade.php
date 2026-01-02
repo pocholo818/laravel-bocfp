@@ -33,8 +33,11 @@
             <div class="card-body">
                 <div class="mt-2 d-flex align-items-center">
                     <h3 class="mb-0 me-2 flex-grow-1">
-                        <i class="fa-solid fa-user"></i>
-                        {{ $record->name }}
+                        <i class="fa-solid fa-user"></i>{{ $record->name }}
+                        <div>
+                        {{-- <div class="mx-4"> --}}
+                            <p class="fw-light">{{ nice_display(/*$record->role*/"admin") }}</p>
+                        </div>
                     </h3>
 
                     <span class="badge bg-{{ status_badge($record->status) }} fs-6">
@@ -54,16 +57,16 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+                {{-- <div class="row"> --}}
+                    {{-- <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-user pe-2"></i>Type</div>
                         <div>{{ nice_display($record->type) }} {{ in_array($record->type, ['admin', 'super_admin']) == "admin" ? "" : "Admin" }}</div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-gear pe-2"></i>Role</div>
                         <div>{{ $record->role }}</div>
                     </div> --}}
-                </div>
+                {{-- </div> --}}
 
                 <div class="row">
                     @if(in_array($record->type,['provincial','regional']))
@@ -98,7 +101,7 @@
                     @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
                         <a class="btn btn-secondary btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a>
                     @endif --}}
-                    <a class="btn btn-secondary" href="{{ url()->previous() }}">Back</a>
+                    <a class="btn btn-secondary" href="{{ route('backoffice.admin.index') }}">Back</a>
                 </div>             
             </div>
         </div>

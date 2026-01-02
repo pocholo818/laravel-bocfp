@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
  * Request Validator
  */
 use App\Laravel\Requests\PageRequest;
+use App\Laravel\Requests\Backoffice\{AdminRequest};
 
 /*
  * Models
@@ -79,7 +80,7 @@ class AdminController extends Controller
                                                     }
                                                 });
                                     })
-                                    // ->whereNot('id', 1)
+                                    ->whereNot('id', 1)
                                     ->orderBy('created_at','desc')
                                     ->paginate(10);
 
@@ -112,7 +113,7 @@ class AdminController extends Controller
         try{
             $password = Str::random(8);
 
-            $admin = new Admin();
+            $admin = new User();
             $admin->name = trim("{$request->input('name')}");
             $admin->email = $request->input('email');
             // $admin->username = $request->input('username');
@@ -120,28 +121,90 @@ class AdminController extends Controller
             // $admin->type = $request->input('type');
             // $admin->role_id = $user_role->id;
             // $admin->role = $user_role->name;
-            $admin->password = bcrypt($password );
+            $admin->password = bcrypt($password);
             $admin->status = $request->input('status');
             $admin->save();
 
-            $admin->assignRole($user_role);
+            // $admin->assignRole($user_role);
 
-            if (env( 'EMAIL_SERVICE', false)) {
-                $data = [
-                    'admin' => $admin,
-                    'password_plain' => $password,
-                    'link' => route('backoffice.auth.login'),
-                    'web_link' => route('web.home'),
-                ];
+            // if (env( 'EMAIL_SERVICE', false)) {
+            //     $data = [
+            //         'admin' => $admin,
+            //         'password_plain' => $password,
+            //         'link' => route('backoffice.auth.login'),
+            //         'web_link' => route('web.home'),
+            //     ];
 
-                Mail::to($admin->email)->send(new AdminCreated($data));
-            }
+            //     Mail::to($admin->email)->send(new AdminCreated($data));
+            // }
 
             DB::commit();
             session()->flash('notification-status', 'success');
             session()->flash('notification-msg', "Admin created successfully.");
             return redirect()->route('backoffice.admin.index');
         }catch(\Exception $e){ 
+            DB::rollback();
+            session()->flash('notification-status', 'failed');
+            session()->flash('notification-msg', "Server Error: Code #{$e->getLine()}");
+            return redirect()->back();
+        }
+    }
+
+    public function edit(PageRequest $request, $admin_id = NULL){
+
+        $this->data['record'] = User::where('id', $admin_id)->first();
+
+        if(!$this->data['record'] || $this->data['record']->id == 1){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->route('backoffice.admin.index', $this->data);
+            // return redirect()->back();
+        }
+
+        $this->data['page_title'] = " Edit Admin";
+        return view('backoffice.admin.edit', $this->data);
+    }
+
+    public function update(AdminRequest $request, $admin_id = NULL){
+        
+        $admin = User::where('id', $admin_id)->first();
+
+        if(!$admin){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+        try{
+
+            // $user_role = AdminRole::find($request->input('role'));
+            
+            // get role's permissions
+            // $permissions = $user_role->permissions->groupBy('module_name');
+            // $grouped_perms = [];
+
+            // foreach ($permissions as $module => $perms) {
+            //     $grouped_perms[$module] = $perms->pluck('description')->toArray();
+            // }
+
+            $admin->name = trim("{$request->input('name')}");
+            $admin->email = $request->input('email');
+            // $admin->username = $request->input('username');
+            $admin->contact_number = $request->input('contact_number');
+            // $admin->type = $request->input('type');
+            // $admin->role_id = $user_role->id;
+            // $admin->role = $user_role->name;
+            $admin->status = $request->input('status');
+            $admin->save();
+
+            // $admin->assignRole($user_role);
+
+            DB::commit();
+            session()->flash('notification-status', 'success');
+            session()->flash('notification-msg', "Admin updated successfully.");
+            return redirect()->route('backoffice.admin.index');
+        }catch(\Exception $e){
             DB::rollback();
             session()->flash('notification-status', 'failed');
             session()->flash('notification-msg', "Server Error: Code #{$e->getLine()}");

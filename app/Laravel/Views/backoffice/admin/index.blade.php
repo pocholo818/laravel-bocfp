@@ -138,10 +138,10 @@
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item active" href="{{ route('backoffice.admin.show', $record->id) }}">View Details</a>
-                                        {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active")
+                                        {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active") --}}
                                             <li><a class="dropdown-item active" href="{{route('backoffice.admin.edit', $record->id)}}">Edit Details</a></li>
-                                            <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li>
-                                        @endif --}}
+                                            {{-- <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li> --}}
+                                        {{-- @endif --}}
                                         {{-- @if($auth->canAny(['backoffice.admin.update_status'],'admin')) --}}
                                             <li><a class="dropdown-item active btn-update-status" href="#" data-status="{{ $record->status }}" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a></li>
                                         {{-- @endif --}}
