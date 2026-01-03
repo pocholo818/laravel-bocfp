@@ -8,8 +8,8 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-muted" href="{{-- route('backoffice.index') --}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a class="text-muted" href="{{-- route('backoffice.admin.index') --}}">Administrator</a></li>
+                <li class="breadcrumb-item"><a class="text-muted" href="{{ route('backoffice.index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a class="text-muted" href="{{ route('backoffice.admin.index') }}">Administrator</a></li>
             </ol>
         </div>
     </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-2">
                     <label class="form-label">Role</label>
-                    {!! html()->select('role', $roles)->id('input_role')->class('form-control') !!}
+                    {!! html()->select('role', $roles, $selected_role)->id('input_role')->class('form-control') !!}
                 </div>
                 <div class="col-md-2">
                     <label class="form-label">Status</label>
@@ -80,9 +80,9 @@
                 
                 {{-- Desktop view --}}
                 <div class="d-none d-md-flex gap-2">
-                    {{-- @if($auth->canAny(['backoffice.admin.create'],'admin')) --}}
+                    @if($auth->canAny(['backoffice.admin.create'],'admin'))
                         <a href="{{ route('backoffice.admin.create') }}" class="btn btn-secondary" type="submit"><i class="fa-solid fa-plus"></i> Add New Admin</a>
-                    {{-- @endif --}}
+                    @endif
                     {{-- @if($auth->canAny(['backoffice.admin.export'],'admin')) --}}
                         {{-- <a type="button" class="btn btn-secondary btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
                         <a type="button" class="btn btn-secondary btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a> --}}
@@ -95,9 +95,9 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                         <ul class="dropdown-menu">
                             <li> 
-                                {{-- @if($auth->canAny(['backoffice.admin.create'],'admin')) --}}
-                                    <a href="{{-- route('backoffice.admin.create') --}}" class="dropdown-item active">Add New Admin</a>
-                                {{-- @endif --}}
+                                @if($auth->canAny(['backoffice.admin.create'],'admin'))
+                                    <a href="{{ route('backoffice.admin.create') }}" class="dropdown-item active">Add New Admin</a>
+                                @endif
                                 {{-- @if($auth->canAny(['backoffice.admin.export'],'admin')) --}}
                                     {{-- <a type="button" class="dropdown-item active btn-export" data-label="pdf" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to PDF</a>
                                     <a type="button" class="dropdown-item active btn-export" data-label="excel" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Export to Excel</a> --}}
@@ -115,7 +115,7 @@
                 <tr>
                     <th scope="col" width="15%">Name</th>
                     <th scope="col" width="15%">Email</th>
-                    {{-- <th scope="col" width="10%">Role</th> --}}
+                    <th scope="col" width="10%">Role</th>
                     <th scope="col" width="5%">Status</th>
                     <th scope="col" width="10%">Last Login</th>
                     <th scope="col" width="10%">Date Registered</th>
@@ -127,7 +127,7 @@
                         <tr>
                             <td><a href="{{route('backoffice.admin.show', $record->id)}}" class="text-decoration-underline">{{ nice_display($record->name) }}</a></td>
                             <td class="text-lowercase">{{ $record->email }}</td>
-                            {{-- <td>{{ nice_display($record->type) }}</td> --}}
+                            <td>{{ nice_display($record->role) }}</td>
                             <td>
                                 <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
                             </td>
@@ -138,13 +138,13 @@
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item active" href="{{ route('backoffice.admin.show', $record->id) }}">View Details</a>
-                                        {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active") --}}
+                                        @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active")
                                             <li><a class="dropdown-item active" href="{{route('backoffice.admin.edit', $record->id)}}">Edit Details</a></li>
                                             {{-- <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li> --}}
-                                        {{-- @endif --}}
-                                        {{-- @if($auth->canAny(['backoffice.admin.update_status'],'admin')) --}}
+                                        @endif
+                                        @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
                                             <li><a class="dropdown-item active btn-update-status" href="#" data-status="{{ $record->status }}" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a></li>
-                                        {{-- @endif --}}
+                                        @endif
                                     </ul>
                                 </div>
                             </td>
@@ -154,10 +154,6 @@
                             <td colspan="7" class="text-center">No Record found.</td>
                         </tr>
                     @endforelse
-
-                    {{-- <tr>
-                        <td colspan="7" class="text-center">No Record found.</td>
-                    </tr> --}}
             </tbody>
             </table>
             

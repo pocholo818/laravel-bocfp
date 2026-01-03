@@ -86,7 +86,7 @@
                             </div>
                         </div> --}}
 
-                        {{-- <div class="mb-3 row">
+                        <div class="mb-3 row">
                             <label class="col-sm-3">Role <b class="text-danger">*</b></label>
                             <div class="col-sm-9">
                                 {!! html()->select('role', $roles, old('role'))->id('input_role')->class('form-control') !!}
@@ -97,7 +97,7 @@
                                     </div>
                                 @endif
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="mb-3 row">
                             <label class="col-sm-3">Status <b class="text-danger">*</b></label>

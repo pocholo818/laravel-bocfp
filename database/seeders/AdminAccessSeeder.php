@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Seeder;
+use App\Laravel\Models\User;
 
 class AdminAccessSeeder extends Seeder
 {
@@ -16,20 +17,16 @@ class AdminAccessSeeder extends Seeder
      */
     public function run()
     {
-        // install perms table
-
-
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); // ignore foreign key checks
         DB::table('users_has_permissions')->truncate();
         DB::table('users_has_roles')->truncate();
         DB::table('users_roles_has_permissions')->truncate();
-        DB::table('users_permissions')->delete();
-        DB::table('users_roles')->delete();
+
+        DB::table('users_permissions')->truncate();
+        DB::table('users_roles')->truncate();
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // dashboard
-        // Permission::create(['name' => 'backoffice.index', 'description' => "Dashboard", 'module' => "dashboard", 'module_name' => "Dashboard", 'guard_name' => "admin"]);
-        
         // Administrator
         Permission::create(['name' => 'backoffice.admin.index', 'description' => "View Administrator Accounts", 'module' => "admin", 'module_name' => "Administrator", 'guard_name' => "admin"]);
         Permission::create(['name' => 'backoffice.admin.show', 'description' => "Administrator Profile", 'module' => "admin", 'module_name' => "Administrator", 'guard_name' => "admin"]);
@@ -56,13 +53,14 @@ class AdminAccessSeeder extends Seeder
         // Permission::create(['name' => 'backoffice.cms.faq.show', 'description' => "FAQ details", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);
 
         // Roles
-        Role::create(['name' => 'Super Admin', 'guard_name' => "admin", "reg_type" => "admin"])
+        Role::create(['name' => 'SUPER ADMIN', 'guard_name' => "admin"])
             ->givePermissionTo(Permission::all());
         
-        Role::create(['name' => 'Staff', 'guard_name' => "admin", "reg_type" => "staff"]);
-        Role::create(['name' => 'Assistant', 'guard_name' => "admin", "reg_type" => "assistant"]);
+        Role::create(['name' => 'STAFF', 'guard_name' => "admin"]);
+        Role::create(['name' => 'ASSISTANT', 'guard_name' => "admin"]);
 
-        $this->call(SyncDTIAccessRoleSeeder::class);
-
+        // assign role to super admin
+        $user = User::find(1);
+        $user->assignRole(1);
     }
 }

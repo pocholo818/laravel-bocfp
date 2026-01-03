@@ -7,7 +7,8 @@ namespace App\Laravel\Controllers\Backoffice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Route;
+
+use Route, Auth;
 
 class Controller extends BaseController
 {
@@ -33,8 +34,8 @@ class Controller extends BaseController
 		// consider Portal namespace will use the User model define in auth.php config file 
 		// 'web' is the declared guard for User Model in auth.php and as default guard
 		// adjust the guard "web" if necessary to other base Controller file like System namespace etc. if you'll use different Authenticable Model
-		if (auth('web')->user()) {
-        	$this->data['auth'] = auth('web')->user();
+		if (auth('admin')->user()) {
+        	$this->data['auth'] = auth('admin')->user();
 		}
 	}
 }

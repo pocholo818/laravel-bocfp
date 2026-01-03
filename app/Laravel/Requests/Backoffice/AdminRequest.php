@@ -8,7 +8,7 @@ class AdminRequest extends RequestManager
 {
     public function rules()
     {
-        $id = $this->admin_id ? : 0;
+        $id = $this->id ? : 0;
 
         $rules = [
             // 'username' => "required|unique:users,username",
@@ -16,7 +16,7 @@ class AdminRequest extends RequestManager
             'email' => "required|email|unique:users,email,{$id},id|allowed_domain",
             'contact_number' => "required|phone:mobile,INTERNATIONAL,PH|unique:users,contact_number,{$id},id",
             // 'type' => "required",
-            // 'role' => "required",
+            'role' => "required",
             'status' => "required",
         ];
 

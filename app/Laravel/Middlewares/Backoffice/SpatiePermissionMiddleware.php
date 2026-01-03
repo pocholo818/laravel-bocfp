@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Guard;
 
-class DtiPermissionMiddleware
+class SpatiePermissionMiddleware
 {
     public function handle($request, Closure $next, $permission, $guard = null)
     {

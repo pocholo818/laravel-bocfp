@@ -30,6 +30,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'backoffice.guest' => \App\Laravel\Middlewares\Backoffice\RedirectIfAuthenticated::class,
             'backoffice.auth'  => \App\Laravel\Middlewares\Backoffice\Authenticate::class,
+                        
+            // spatie roles
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
 
         $middleware->group('web', [
