@@ -17,8 +17,8 @@
                     <div class="d-flex profile-media">
                         <img class="b-r-10" src="{{asset('assets/backoffice/images/dashboard/profile.png')}}" alt="">
                         <div class="flex-grow-1">
-                            <span>{{ /*$auth->name*/ "Name here" }}</span>
-                            <p class="mb-0">{{ /*nice_display($auth->type)*/ "Super Admin" }} <i class="middle fa-solid fa-angle-down"></i>
+                            <span>{{ $auth->name }}</span>
+                            <p class="mb-0">{{ nice_display($auth->role) }} <i class="middle fa-solid fa-angle-down"></i>
                             </p>
                         </div>
                     </div>

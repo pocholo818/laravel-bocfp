@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="text-end mt-3 d-flex flex-wrap justify-content-end gap-2">
-                    @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
+                    @if($auth->canAny(['backoffice.admin.update_status'],'admin') AND $auth->id != 1)
                         <a class="btn btn-{{ $record->status == "inactive" ? "success" : "danger" }} btn-update-status" href="#" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a>
                     @endif
                     {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin'))
