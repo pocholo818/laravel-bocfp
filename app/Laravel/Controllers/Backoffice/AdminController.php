@@ -30,8 +30,8 @@ class AdminController extends Controller
         array_merge($this->data?:[], parent::get_data());
         $this->data['page_title'] .= " Administrator";
 
-        $this->data['statuses'] = [""=>"-- Select status --", "active"=>"Active", "inactive"=>"Inactive"];
-        $this->data['roles'] = ["" => "--select role--"] + UserRole::where('name','!=', 'Super Admin')
+        $this->data['statuses'] = [""=>"-- Select Status --", "active"=>"Active", "inactive"=>"Inactive"];
+        $this->data['roles'] = ["" => "-- Select Role--"] + UserRole::where('name','!=', 'Super Admin')
             ->pluck('name', 'id')
             ->toArray();
     }
