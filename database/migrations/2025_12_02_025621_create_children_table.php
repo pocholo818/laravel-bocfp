@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('guardian_id')->nullable()->index();
             $table->string('relationship')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

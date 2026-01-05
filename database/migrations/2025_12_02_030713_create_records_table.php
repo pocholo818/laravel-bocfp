@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('output',25,2)->default('0.00')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

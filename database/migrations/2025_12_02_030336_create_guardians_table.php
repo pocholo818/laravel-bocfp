@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('purok')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
