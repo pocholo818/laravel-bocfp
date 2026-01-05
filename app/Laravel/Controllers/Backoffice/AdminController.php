@@ -114,10 +114,10 @@ class AdminController extends Controller
 
         try{
             $user_role = UserRole::find($request->input('role'));
-            $password = Str::random(8);
+            $password =  config('app.email_service') ? Str::random(8) : config('app.default_password');
 
             $admin = new User();
-            $admin->name = trim("{$request->input('name')}");
+            $admin->name = strtoupper(trim("{$request->input('name')}"));
             $admin->email = $request->input('email');
             // $admin->username = $request->input('username');
             $admin->contact_number = $request->input('contact_number');
@@ -180,7 +180,7 @@ class AdminController extends Controller
         try{
             $user_role = UserRole::find($request->input('role'));
 
-            $admin->name = trim("{$request->input('name')}");
+            $admin->name = strtoupper(trim("{$request->input('name')}"));
             $admin->email = $request->input('email');
             // $admin->username = $request->input('username');
             $admin->contact_number = $request->input('contact_number');
@@ -202,6 +202,47 @@ class AdminController extends Controller
             return redirect()->back();
         }
     }
+
+    public function update_password(PageRequest $request, $admin_id = NULL){
+        $admin = User::find($admin_id);
+
+        if(!$admin){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+        try{
+
+            $new_password = config('app.email_service') ? Str::random(8) : config('app.default_password');
+            $admin->password = bcrypt($new_password);
+            // $admin->is_default_password = 1;
+            $admin->save();
+
+            // if(env('EMAIL_SERVICE', false)) {
+            //     $data = [
+            //         'admin' => $admin,
+            //         'new_password' => $new_password,
+            //         'link' => route('backoffice.auth.login'),
+            //         'web_link' => route('web.home'),
+            //     ];
+            //     Mail::to($admin->email)->send(new AdminResetPassword($data));
+            // }
+
+            DB::commit();
+            session()->flash('notification-status', 'success');
+            session()->flash('notification-msg', "Reset password link sent to the admin's email.");
+            // return redirect()->route('backoffice.admin.index');
+            return redirect()->back();
+
+        }catch(\Exception $e){
+            DB::rollback();
+            session()->flash('notification-status', 'failed');
+            session()->flash('notification-msg', "Server Error: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+	}
 
     public function update_status(PageRequest $request, $id = NULL){
         $admin = User::find($id);

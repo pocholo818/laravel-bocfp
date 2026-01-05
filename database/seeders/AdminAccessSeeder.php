@@ -61,6 +61,9 @@ class AdminAccessSeeder extends Seeder
 
         // assign role to super admin
         $user = User::find(1);
+        $user->role = "SUPER ADMIN";
+        $user->role_id = 1;
+        $user->save();
         $user->assignRole(1);
     }
 }

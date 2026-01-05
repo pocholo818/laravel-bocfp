@@ -19,14 +19,11 @@ class AdminAccountSeeder extends Seeder
             $user = new User;
         }
 
-        $user->name = "Super User";
-        $user->email = "admin@email.com";
-        $user->username = "master_admin";
-        $user->password = bcrypt("admin");
+        $user->name = config('app.admin_name');
+        $user->email = config('app.admin_email');
+        $user->username = config('app.admin_username');
+        $user->password = bcrypt(config('app.admin_password'));
         $user->status = "active";
-        // $user->type = "super_admin";
-        // $user->role = "Super Admin";
-        // $user->role_id = 1;
         // $user->is_default_password = "0";
         $user->save();
     }

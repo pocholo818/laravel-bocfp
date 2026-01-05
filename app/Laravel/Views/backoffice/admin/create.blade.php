@@ -131,21 +131,6 @@
 <script src="{{ asset('assets/js/imask/imask.min.js') }}"></script>
 <script type="text/javascript">
 
-    $('.text-capitalize').on('input', function() {
-        let value = $(this).val().toLowerCase();
-        let title_case = value.replace(/\b\w/g, function(letter) {
-            return letter.toUpperCase();
-        });
-        $(this).val(title_case);
-    });
-
-    $('.text-capitalize').on('input', function() {
-        let value = $(this).val().replace(/[^A-Za-z\s.'-]/g, '');
-        value = value.replace(/\s{2,}/g, ' ');
-
-        $(this).val(value);
-    });
-
     $(function(){
         // contact number
         let input = document.getElementById('input_contact');

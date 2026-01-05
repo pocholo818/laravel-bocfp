@@ -123,4 +123,13 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // custom configs
+    // super admin creds
+    'admin_name' => env('ENV_ADMIN', false) ? env('ADMIN_NAME') : 'SUPER USER',
+    'admin_email' => env('ENV_ADMIN', false) ? env('ADMIN_EMAIL') : 'admin@email.com',
+    'admin_username' => env('ENV_ADMIN', false) ? env('ADMIN_USERNAME') : 'master_admin',
+    'admin_password'=> env('ENV_ADMIN', false) ? env('ADMIN_PASSWORD') : "admin",
+
+    'email_service' => env('EMAIL_SERVICE', false),
+    'default_password' => env('DEFAULT_PASSWORD', 'Aa@12345'),
 ];

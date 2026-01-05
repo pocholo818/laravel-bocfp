@@ -17,7 +17,7 @@
                     <div class="d-flex profile-media">
                         <img class="b-r-10" src="{{asset('assets/backoffice/images/dashboard/profile.png')}}" alt="">
                         <div class="flex-grow-1">
-                            <span>{{ $auth->name }}</span>
+                            <span>{{ nice_display($auth->name) }}</span>
                             <p class="mb-0">{{ nice_display($auth->role) }} <i class="middle fa-solid fa-angle-down"></i>
                             </p>
                         </div>

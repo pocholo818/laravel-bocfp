@@ -140,7 +140,7 @@
                                         <li><a class="dropdown-item active" href="{{ route('backoffice.admin.show', $record->id) }}">View Details</a>
                                         @if($auth->canAny(['backoffice.admin.reset_password'],'admin') AND $record->status == "active")
                                             <li><a class="dropdown-item active" href="{{route('backoffice.admin.edit', $record->id)}}">Edit Details</a></li>
-                                            {{-- <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li> --}}
+                                            <li><a class="dropdown-item active btn-reset-admin" href="#" data-url="{{route('backoffice.admin.reset_password', $record->id)}}">Reset Password</a></li>
                                         @endif
                                         @if($auth->canAny(['backoffice.admin.update_status'],'admin'))
                                             <li><a class="dropdown-item active btn-update-status" href="#" data-status="{{ $record->status }}" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a></li>
@@ -184,34 +184,34 @@
         $('#input_role option:first').text('-- All --');
     });
 
-    $(".btn-export").on('click', function(){
-        let input_keyword = $('#input_keyword').val();
-        let input_start_date = $('#input_start_date').val();
-        let input_end_date = $('#input_end_date').val();
-        let input_status = $('#input_status').val();
-        let type = $(this).data('label');
-        $('#input_file_type').val(type);
+    // $(".btn-export").on('click', function(){
+    //     let input_keyword = $('#input_keyword').val();
+    //     let input_start_date = $('#input_start_date').val();
+    //     let input_end_date = $('#input_end_date').val();
+    //     let input_status = $('#input_status').val();
+    //     let type = $(this).data('label');
+    //     $('#input_file_type').val(type);
 
-        Swal.fire({
-            title: `Are you sure you want to Export this to ${type == "pdf" ? "PDF" : "Excel"}?`,
-            icon: 'question',
-            showCancelButton: true,
-            showLoaderOnConfirm: true,
-            confirmButtonText: 'Yes',
-            customClass: {
-                cancelButton: 'btn btn-danger',
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // set the values to the hidden inputs
-                $('#keyword_data').val(input_keyword);
-                $('#start_date_data').val(input_start_date);
-                $('#end_date_data').val(input_end_date);
-                $('#status_data').val(input_status);
-                $("#export_form").submit();
-            }
-        });
-    });
+    //     Swal.fire({
+    //         title: `Are you sure you want to Export this to ${type == "pdf" ? "PDF" : "Excel"}?`,
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         showLoaderOnConfirm: true,
+    //         confirmButtonText: 'Yes',
+    //         customClass: {
+    //             cancelButton: 'btn btn-danger',
+    //         },
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             // set the values to the hidden inputs
+    //             $('#keyword_data').val(input_keyword);
+    //             $('#start_date_data').val(input_start_date);
+    //             $('#end_date_data').val(input_end_date);
+    //             $('#status_data').val(input_status);
+    //             $("#export_form").submit();
+    //         }
+    //     });
+    // });
 
     $(".btn-update-status").on('click', function(){
 
