@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('announcement', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->nullable()->index();
-            $table->text('title')->nullable();
-            $table->text('content')->nullable();
+            $table->bigInteger('child_id')->nullable()->index();
+            $table->bigInteger('height')->nullable();
+            $table->bigInteger('weight')->nullable();
+            $table->decimal('output',25,2)->default('0.00')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('announcement');
+        Schema::dropIfExists('records');
     }
 };

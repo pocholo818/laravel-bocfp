@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('child', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->id();
+            $table->string('household_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('sex')->nullable();
-            $table->date('birthdate')->nullable();
-            $table->bigInteger('guardian_id')->nullable()->index();
-            $table->string('relationship')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('address')->nullable();
+            $table->string('purok')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('child');
+        Schema::dropIfExists('guardians');
     }
 };
