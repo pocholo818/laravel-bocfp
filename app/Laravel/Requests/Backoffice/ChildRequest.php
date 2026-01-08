@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Laravel\Requests\Backoffice;
+
+use App\Laravel\Requests\RequestManager;
+
+class ChildRequest extends RequestManager
+{
+    public function rules()
+    {
+        $id = $this->id ? : 0;
+
+        $rules = [
+            'first_name' => "required|name_format|min:2",
+            'last_name' => "required|name_format|min:2",
+            // 'email' => "required|email|unique:users,email,{$id},id|allowed_domain",
+            // 'contact_number' => "required|phone:mobile,INTERNATIONAL,PH|unique:users,contact_number,{$id},id",
+            'sex' => "required",
+            'status' => "required",
+        ];
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+
+        $role = $this->input('role');
+
+        return [
+            'required'	=> "Field is required.",
+            // 'unique' => "This :attribute is already taken.",
+            // 'email' => "Please enter a valid email address.",
+            // 'contact_number.unique' => "This contact number is already registered.",
+            // 'phone' => "Please enter a valid contact number.",
+            'name_format' => "Invalid name. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.",
+        ];
+    }
+
+}

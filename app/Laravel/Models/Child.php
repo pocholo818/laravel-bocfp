@@ -24,7 +24,7 @@ class Child extends Model{
 	 *
 	 * @var string
 	 */
-	protected $table = "announcements";
+	protected $table = "children";
 
 	/**
 	 * The database connection used by the model.
@@ -70,4 +70,15 @@ class Child extends Model{
 	 */
 	protected $casts = [
 	];
+
+	
+	public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+	public function getGuardianNameAttribute()
+    {
+        return "{$this->guardian_first_name} {$this->guardian_last_name}";
+    }
 }

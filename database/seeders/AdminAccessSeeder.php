@@ -45,6 +45,14 @@ class AdminAccessSeeder extends Seeder
         //Access Control
         Permission::create(['name' => 'backoffice.access_control.index', 'description' => "View Access Controls", 'module' => "access_control", 'module_name' => "Access Control", 'guard_name' => "admin"]);
 
+        // Child
+        Permission::create(['name' => 'backoffice.child.index', 'description' => "View Child Records", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.child.show', 'description' => "Child Profile", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.child.create', 'description' => "Creating Child Account", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.child.edit', 'description' => "Editing Child Account", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.child.update_status', 'description' => "Activating/Deactivating Child Account", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.child.export', 'description' => "PDF/Excel Export", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
+
         // CMS
         // Permission::create(['name' => 'backoffice.cms.faq.index', 'description' => "View FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);
         // Permission::create(['name' => 'backoffice.cms.faq.create', 'description' => "Creating FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);

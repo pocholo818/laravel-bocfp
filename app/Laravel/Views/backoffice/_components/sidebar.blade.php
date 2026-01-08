@@ -45,7 +45,15 @@
                         </li>
                     </li>
 
-                    @if($auth->canAny(['backoffice.admin.index'],'admin'))
+                    {{-- menu --}}
+                    @php 
+                        $menu_perms = [
+                            'backoffice.admin.index',
+                            // 'backoffice.child.index',
+                            // 'backoffice.guardian.index',
+                        ];
+                    @endphp
+                    @if($auth->canAny($menu_perms,'admin'))
                         <li class="sidebar-main-title">
                             <div>
                                 <h6>Menu</h6>
@@ -55,8 +63,26 @@
                         @if($auth->canAny(['backoffice.admin.index'],'admin'))
                             <li class="sidebar-list">
                                 <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.admin.index') }}">
-                                    <i data-feather="user" class="text-muted"></i>
+                                    <i data-feather="shield" class="text-muted"></i>
                                     <span class="pl-5">Administrators </span>
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($auth->canAny(['backoffice.child.index'],'admin'))
+                            <li class="sidebar-list">
+                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.child.index') }}">
+                                    <i data-feather="user" class="text-muted"></i>
+                                    <span class="pl-5">Children </span>
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($auth->canAny(['backoffice.admin.index'],'admin'))
+                            <li class="sidebar-list">
+                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.admin.index') }}">
+                                    <i data-feather="users" class="text-muted"></i>
+                                    <span class="pl-5">Guardians </span>
                                 </a>
                             </li>
                         @endif

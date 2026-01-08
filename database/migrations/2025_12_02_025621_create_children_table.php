@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('sex')->nullable();
             $table->date('birthdate')->nullable();
             $table->bigInteger('guardian_id')->nullable()->index();
+            $table->string('guardian_first_name')->nullable();
+            $table->string('guardian_last_name')->nullable();
             $table->string('relationship')->nullable();
+            $table->string('status')->nullable()->default('inactive');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -9,8 +9,8 @@
         <div class="col-sm-6">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a class="text-muted" href="{{ route('backoffice.index') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a class="text-muted" href="{{ route('backoffice.admin.index') }}">Admin</a></li>
-                <li class="breadcrumb-item"><a class="text-muted">Admin Details</a></li>
+                <li class="breadcrumb-item"><a class="text-muted" href="{{ route('backoffice.child.index') }}">Children</a></li>
+                <li class="breadcrumb-item"><a class="text-muted">Child Details</a></li>
             </ol>
         </div>
     </div>
@@ -27,15 +27,21 @@
         @endif
         
         <div class="card card-absolute">
-            <div class="card-header btn-secondary">
-                <h5 class="txt-light">Admin Details</h5>
+            <div class="row">
+                {{-- <a href="{{ asset('placeholder/profile.png') }}}"> --}}
+                    <img id="child_preview" class="img-fluid mx-auto d-block mt-5 child-pic" src="{{ asset('placeholder/profile.png') }}" alt="Child Photo Preview">
+                {{-- </a> --}}
             </div>
+
+            <div class="card-header btn-secondary">
+                <h5 class="txt-light">Child Details</h5>
+            </div>
+
             <div class="card-body">
                 <div class="mt-2 d-flex align-items-center">
                     <h3 class="mb-0 me-2 flex-grow-1">
-                        <i class="fa-solid fa-user"></i>{{ $record->name }}
+                        <i class="fa-solid fa-child"></i>{{ $record->name }}
                         <div>
-                        {{-- <div class="mx-4"> --}}
                             <p class="fw-light">{{ nice_display($record->role) }}</p>
                         </div>
                     </h3>
@@ -48,39 +54,64 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-envelope pe-2"></i>Email</div>
-                        <div>{{ $record->email }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-user-group"></i>Guardian</div>
+                        <div>{{ $record->guardian ?? "---" }}</div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-phone pe-2 pe-2"></i>Contact Number</div>
-                        <div>{{ $record->contact_number ?? "---" }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-phone"></i>Contact Number</div>
+                        <div>{{ $record->guardian?->contact_number ?? "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i>Date Registered</div>
-                        <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-arrows-up-down"></i>Height</div>
+                        <div>{{ $record->height ?? "---" }}</div>
                     </div>
+
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-history pe-2"></i>Last Login</div>
-                        <div>{{ $record->last_login_at ? $record->last_login_at ->format('m/d/Y h:i A') : "---"  }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-anchor"></i>Weight</div>
+                        <div>{{ $record->weight ?? "---" }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-anchor"></i>BMI</div>
+                        <div>{{ $record->output ?? "---" }}</div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-mars-and-venus"></i>Sex</div>
+                        <div>{{ display_gender($record->sex) }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i>Date Enrolled</div>
+                        <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
                     </div>
                 </div>
 
                 <div class="text-end mt-3 d-flex flex-wrap justify-content-end gap-2">
-                    @if($auth->canAny(['backoffice.admin.update_status'],'admin') AND $auth->id != 1)
-                        <a class="btn btn-{{ $record->status == "inactive" ? "success" : "danger" }} btn-update-status" href="#" data-url="{{route('backoffice.admin.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a>
+                    @if($auth->canAny(['backoffice.child.update_status'],'admin'))
+                        <a class="btn btn-{{ $record->status == "inactive" ? "success" : "danger" }} btn-update-status" href="#" data-url="{{route('backoffice.child.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a>
                     @endif
-                    {{-- @if($auth->canAny(['backoffice.admin.reset_password'],'admin'))
-                        <a class="btn btn-secondary btn-reset-admin" href="#" data-url="{{ route('backoffice.admin.reset_password', $record->id) }}">Reset Password</a>
-                    @endif --}}
-                    <a class="btn btn-secondary" href="{{ route('backoffice.admin.index') }}">Back</a>
+                    <a class="btn btn-secondary" href="{{ route('backoffice.child.index') }}">Back</a>
                 </div>             
             </div>
         </div>
     </div>
 </div>
+@stop
+
+@section('page-styles')
+<style>
+    .child-pic {
+        width: 50%;
+    }
+</style>
 @stop
 
 @section('page-scripts')

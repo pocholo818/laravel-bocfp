@@ -351,42 +351,6 @@ if( !function_exists('date_format') ){
     } 
 }
 
-if( !function_exists('event_badge') ){
-    function event_badge($status)
-    {
-        $result = "default";
-
-        switch ($status) {
-            case "ongoing":
-                return 'primary';
-            case "upcoming":
-                return 'warning';
-            case "completed":
-                return 'secondary';
-            case "cancelled":
-                return 'danger';
-            default:
-                return 'success';
-        }
-    }
-}
-
-if( !function_exists('event_label') ){
-    function event_label($start_date, $end_date)
-    {
-        $today = now()->toDateString();
-
-        switch (true) {
-            case $start_date->toDateString() <= $today && $end_date->toDateString() >= $today:
-                return 'ONGOING';
-            case $start_date->isFuture() && $end_date->isFuture():
-                return 'UPCOMING';
-            default:
-                return 'COMPLETED';
-        }
-    }
-}
-
 if( !function_exists('create_filename') ){
     function create_filename($extension)
     {
@@ -423,61 +387,6 @@ if (!function_exists('date_range')) {
         return "{$startMonth} {$startDay} - {$endMonth} {$endDay}, {$endYear}";
     }
 }
-
-
-if (! function_exists('schedule_format_date')) {
-    function schedule_format_date($date)
-    {
-        return \Illuminate\Support\Carbon::parse($date)->format('F d, Y');
-    }
-}
-
-if (! function_exists('schedule_time_range')) {
-    function schedule_time_range($start_time, $end_time)
-    {
-        $start = \Illuminate\Support\Carbon::parse($start_time)->format('g:i A');
-        $end = \Illuminate\Support\Carbon::parse($end_time)->format('g:i A');
-        return "{$start} - {$end}";
-    }
-}
-
-
-if( !function_exists('asset_sizes') ){
-    function asset_sizes($asset_size)
-    {
-        $result = "default";
-
-       switch(Str::lower($asset_size)){
-            case "micro_1":
-                return "₱ 100,000 and below";
-            break;
-            case "micro_2":
-                return "₱ 100,001 - 1,500,000";
-            break;
-            case "micro_3":
-                return "₱ 1,500,000 - 3,000,000";
-            break;
-            case "small_1":
-                return "₱ 3,000,001 - 5,000,000";
-            break;
-            case "small_2":
-                return "₱ 5,000,000 - 10,000,000";
-            break;
-            case "small_3":
-                return "₱ 10,000,001 - 15,000,000";
-            break;
-            case "medium":
-                return "₱ 15,000,001 - 100,000,000";
-            break;
-            case "large":
-                return "₱ 100,000,000 above";
-            break;
-            
-        }
-
-    }
-}
-
 
 if (!function_exists('date_time')) {
 
@@ -538,48 +447,6 @@ if( !function_exists('prettify_text') ){
     } 
 }
 
-if( !function_exists('document_type') ){
-    function document_type($type)
-    {
-        $result = "default";
-
-        switch ($type) {
-            case "bir_form":
-                return 'BIR Form';
-            case "business_registration_doc":
-                return 'Business Registration Document';
-            case "mayors_permit":
-                return 'Mayor Permit';
-            case "fda_lto":
-                return 'FDA LTO';
-            case "fda_cpr":
-                return 'FDA Certificate of Product Registration';
-            case "fda_cpn":
-                return 'FDA Certificate of Product Notification';
-            case "halal":
-                return 'Halal Certificate';
-            case "official_valid_receipt_doc":
-                return 'Official Valid Receipt';
-            case "coc_doc":
-                return 'Certificate of Compliance';
-            case "other_certificates":
-                return 'Other Certificates';
-        }
-    }
-}
-
-if( !function_exists('get_registration_groups') ){
-    function get_registration_groups(){
-
-    return [
-            'provincial' => "Provincial Office",
-            'regional' => "Regional Admin",
-            'admin' => "DTI",
-        ];
-    }
-}
-
-
 if (! function_exists('format_time')) {
     function format_time($time, $withMinutes = true)
     {
@@ -592,23 +459,22 @@ if (! function_exists('format_time')) {
     }
 }
 
-if( !function_exists('business_category') ){
-    function business_category($category)
+if (! function_exists('display_gender')) {
+    function display_gender($value)
     {
-        $result = "default";
+        $result = "N/A";
 
-        switch(Str::lower($category)) {
-            case 'food': $result = "success";
+        switch ($value) {
+            case 'M': 
+                $result = "Male";
                 break;
-            case 'non_food':	 $result = "secondary";
-                break;
-            case 'food_and_non_food':
-            case 'food_and_nonfood': $result = "primary";
+            case 'F': 
+                $result = "Female";
                 break;
         }
+
         return $result;
-         
-    } 
+    }
 }
 
 }
