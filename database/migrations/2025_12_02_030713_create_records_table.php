@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->nullable()->index();
             $table->bigInteger('child_id')->nullable()->index();
-            $table->bigInteger('height')->nullable();
-            $table->bigInteger('weight')->nullable();
-            $table->decimal('output',25,2)->default('0.00')->nullable();
+            $table->decimal('height',25,2)->nullable();
+            $table->decimal('weight',25,2)->nullable();
+            $table->decimal('bmi',25,2)->default('0.00')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();

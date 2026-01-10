@@ -60,6 +60,19 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label class="col-sm-3">Birthdate <b class="text-danger">*</b></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control date-input" id="input_birthdate" value="" name="birthdate" data-date-format="m/d/Y" data-default-date="{{ old('birthdate', $record->birthdate->format('m/d/Y')) }}" placeholder="MM/DD/YYYY">
+                                
+                                @if($errors->first('birthdate'))
+                                    <div class="text-left mx-3">
+                                        <small class="d-block mt-1 text-danger">{{ $errors->first('birthdate') }}</small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label class="col-sm-3">Sex <b class="text-danger">*</b></label>
                             <div class="col-sm-9">
                                 {!! html()->select('sex', $sexes, old('sex', $record->sex))->id('input_sex')->class('form-control') !!}
@@ -106,6 +119,10 @@
 <script type="text/javascript">
 
     $(function(){
+        $(".date-input").flatpickr({
+            dateFormat: "m/d/Y"
+        });
+
         // contact number
         let input = document.getElementById('input_contact');
         let input_value = "{{ old('contact_number') }}";

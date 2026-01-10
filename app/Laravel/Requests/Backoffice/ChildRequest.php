@@ -13,8 +13,7 @@ class ChildRequest extends RequestManager
         $rules = [
             'first_name' => "required|name_format|min:2",
             'last_name' => "required|name_format|min:2",
-            // 'email' => "required|email|unique:users,email,{$id},id|allowed_domain",
-            // 'contact_number' => "required|phone:mobile,INTERNATIONAL,PH|unique:users,contact_number,{$id},id",
+            'birthdate' => "required|date",
             'sex' => "required",
             'status' => "required",
         ];
@@ -29,11 +28,8 @@ class ChildRequest extends RequestManager
 
         return [
             'required'	=> "Field is required.",
-            // 'unique' => "This :attribute is already taken.",
-            // 'email' => "Please enter a valid email address.",
-            // 'contact_number.unique' => "This contact number is already registered.",
-            // 'phone' => "Please enter a valid contact number.",
             'name_format' => "Invalid name. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.",
+            'date' => "Invalid date format.",
         ];
     }
 

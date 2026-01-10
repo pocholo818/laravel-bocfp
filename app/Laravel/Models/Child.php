@@ -4,7 +4,7 @@ namespace App\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Str;
+use Str, Carbon\Carbon;
 
 class Child extends Model{
 	
@@ -69,6 +69,7 @@ class Child extends Model{
 	 * @var array
 	 */
 	protected $casts = [
+		'birthdate' => 'date',
 	];
 
 	
@@ -81,4 +82,9 @@ class Child extends Model{
     {
         return "{$this->guardian_first_name} {$this->guardian_last_name}";
     }
+
+	public function getAgeAttribute()
+	{
+		return Carbon::parse($this->birthdate)->age;
+	}
 }

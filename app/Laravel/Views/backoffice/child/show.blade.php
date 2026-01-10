@@ -65,25 +65,37 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-arrows-up-down"></i>Height</div>
-                        <div>{{ $record->height ?? "---" }}</div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-anchor"></i>Weight</div>
-                        <div>{{ $record->weight ?? "---" }}</div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-anchor"></i>BMI</div>
-                        <div>{{ $record->output ?? "---" }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-calendar"></i>Birthday</div>
+                        <div>{{ $record->birthdate->format('F d, Y') }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-mars-and-venus"></i>Sex</div>
                         <div>{{ display_gender($record->sex) }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i>Height</div>
+                        <div>{{ $record->height > 0 ?: "---" }}</div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-weight-scale"></i>Weight</div>
+                        <div>{{ $record->weight > 0 ?: "---" }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-scale-balanced"></i>BMI</div>
+                        <div>{{ $record->bmi > 0 ?: "---" }}</div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-user-clock"></i>Age</div>
+                        <div>{{ $record->age }} {{ Str::plural('year', $record->age) }} old</div>
                     </div>
                 </div>
 
