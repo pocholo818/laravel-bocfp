@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
  * Request Validator
  */
 use App\Laravel\Requests\PageRequest;
-use App\Laravel\Requests\Backoffice\{ChildRequest};
+use App\Laravel\Requests\Backoffice\{GuardianRequest};
 
 /*
  * Models
  */
-use App\Laravel\Models\{Child};
+use App\Laravel\Models\{Guardian};
 
 /* App Classes
  */
@@ -22,21 +22,20 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Str, DB;
 
-class ChildController extends Controller
+class GuardianController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
         array_merge($this->data?:[], parent::get_data());
-        $this->data['page_title'] .= " Children";
+        $this->data['page_title'] .= " Guardian";
 
         $this->data['statuses'] = [""=>"-- Select Status --", "active"=>"Active", "inactive"=>"Inactive"];
-        $this->data['sexes'] = [""=>"-- Select Sex --", "M"=>"Male", "F"=>"Female"];
     }
 
     public function index(PageRequest $request)
     {
-        $first_record = Child::oldest()->first();
+        $first_record = Guardian::oldest()->first();
 
         if($first_record){
             $start_date = $first_record->created_at;
@@ -51,7 +50,7 @@ class ChildController extends Controller
         $this->data['selected_status'] = $request->input('status');
         $this->data['selected_sex'] = $request->input('sex');
 
-        $this->data['records'] = Child::where(function ($query) {
+        $this->data['records'] = Guardian::where(function ($query) {
                                         if(strlen($this->data['keyword']) > 0) {
                                             return $query
                                                 ->where('name', 'LIKE', '%' . $this->data['keyword'] . '%');
@@ -81,13 +80,13 @@ class ChildController extends Controller
                                     ->orderBy('created_at','desc')
                                     ->paginate(10);
 
-        return view('backoffice.child.index', $this->data);
+        return view('backoffice.guardian.index', $this->data);
     }
 
     public function show(PageRequest $request, $id = NULL){
-        $this->data['page_title'] = "Child Details";
+        $this->data['page_title'] = "Guardian Details";
 
-        $this->data['record'] = Child::find($id);
+        $this->data['record'] = Guardian::find($id);
 
         if(!$this->data['record']){
             session()->flash('notification-status', 'error');
@@ -95,40 +94,33 @@ class ChildController extends Controller
             return redirect()->back();
         }
 
-		return view('backoffice.child.show', $this->data);
+		return view('backoffice.guardian.show', $this->data);
 	}
 
     public function create(PageRequest $request){
-        $this->data['page_title'] = " Create Child";
+        $this->data['page_title'] = " Create Guardian";
 
-        return view('backoffice.child.create', $this->data);
+        return view('backoffice.guardian.create', $this->data);
     }
 
-    public function store(ChildRequest $request){
+    public function store(GuardianRequest $request){
         DB::beginTransaction();
 
         try{
-            $child = new Child();
-            $child->first_name = strtoupper(trim($request->input('first_name')));
-            $child->last_name = strtoupper(trim($request->input('last_name')));
-
-            // set guardian if existed
-            // if($request->input('guardian')){
-            //     $guardian = Guardian::find($request->input('guardian'));
-            //     $child->guardian_id = $guardian->id;
-            //     $child->guardian_first_name = $guardian->first_name;
-            //     $child->guardian_last_name = $guardian->last_name;
-            //     $child->relationship = $request->input('relationship');
-            // }
-
-            $child->sex = $request->input('sex');
-            $child->status = $request->input('status');
-            $child->save();
+            $guardian = new Guardian();
+            $guardian->first_name = strtoupper(trim($request->input('first_name')));
+            $guardian->last_name = strtoupper(trim($request->input('last_name')));
+            $guardian->contact_number = $request->input('contact_number');
+            $guardian->address = $request->input('address');
+            $guardian->purok = $request->input('purok');
+            $guardian->household_id = $request->input('household_id');
+            $guardian->status = $request->input('status');
+            $guardian->save();
 
             DB::commit();
             session()->flash('notification-status', 'success');
-            session()->flash('notification-msg', "Child created successfully.");
-            return redirect()->route('backoffice.child.index');
+            session()->flash('notification-msg', "Guardian created successfully.");
+            return redirect()->route('backoffice.guardian.index');
         }catch(\Exception $e){ 
             DB::rollback();
             session()->flash('notification-status', 'failed');
@@ -139,23 +131,23 @@ class ChildController extends Controller
 
     public function edit(PageRequest $request, $id = NULL){
 
-        $this->data['record'] = Child::where('id', $id)->first();
+        $this->data['record'] = Guardian::where('id', $id)->first();
 
         if(!$this->data['record']){
             session()->flash('notification-status', 'error');
             session()->flash('notification-msg', "Record not found.");
-            return redirect()->route('backoffice.child.index', $this->data);
+            return redirect()->route('backoffice.guardian.index', $this->data);
         }
 
-        $this->data['page_title'] = " Edit Child";
-        return view('backoffice.child.edit', $this->data);
+        $this->data['page_title'] = " Edit Guardian";
+        return view('backoffice.guardian.edit', $this->data);
     }
 
-    public function update(ChildRequest $request, $id = NULL){
+    public function update(GuardianRequest $request, $id = NULL){
         
-        $child = Child::where('id', $id)->first();
+        $guardian = Guardian::find($id);
 
-        if(!$child){
+        if(!$guardian){
             session()->flash('notification-status', 'error');
             session()->flash('notification-msg', "Record not found.");
             return redirect()->back();
@@ -163,26 +155,19 @@ class ChildController extends Controller
 
         DB::beginTransaction();
         try{
-            $child->first_name = strtoupper(trim($request->input('first_name')));
-            $child->last_name = strtoupper(trim($request->input('last_name')));
-
-            // set guardian if existed
-            // if($request->input('guardian')){
-            //     $guardian = Guardian::find($request->input('guardian'));
-            //     $child->guardian_id = $guardian->id;
-            //     $child->guardian_first_name = $guardian->first_name;
-            //     $child->guardian_last_name = $guardian->last_name;
-            //     $child->relationship = $request->input('relationship');
-            // }
-
-            $child->sex = $request->input('sex');
-            $child->status = $request->input('status');
-            $child->save();
+            $guardian->first_name = strtoupper(trim($request->input('first_name')));
+            $guardian->last_name = strtoupper(trim($request->input('last_name')));
+            $guardian->contact_number = $request->input('contact_number');
+            $guardian->address = $request->input('address');
+            $guardian->purok = $request->input('purok');
+            $guardian->household_id = $request->input('household_id');
+            $guardian->status = $request->input('status');
+            $guardian->save();
 
             DB::commit();
             session()->flash('notification-status', 'success');
-            session()->flash('notification-msg', "Child updated successfully.");
-            return redirect()->route('backoffice.child.index');
+            session()->flash('notification-msg', "Guardian updated successfully.");
+            return redirect()->route('backoffice.guardian.index');
         }catch(\Exception $e){
             DB::rollback();
             session()->flash('notification-status', 'failed');
@@ -192,16 +177,16 @@ class ChildController extends Controller
     }
 
     public function update_status(PageRequest $request, $id = NULL){
-        $child = Child::find($id);
+        $guardian = Guardian::find($id);
 
-        if(!$child){
+        if(!$guardian){
             session()->flash('notification-status', 'error');
             session()->flash('notification-msg', "Record not found.");
             return redirect()->back();
         }
 
-        $child->status = $child->status == "active" ? "inactive" : "active";
-        $child->save();
+        $guardian->status = $guardian->status == "active" ? "inactive" : "active";
+        $guardian->save();
 
         session()->flash('notification-status', 'success');
         session()->flash('notification-msg', "Record updated successfully.");

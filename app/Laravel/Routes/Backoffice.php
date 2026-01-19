@@ -22,5 +22,6 @@ Route::group([
         Route::get('/',['as' => "index", 'uses' => "MainController@index"]);
         include_once app_path('Laravel/Routes/Backoffice/Admin.php');
         include_once app_path('Laravel/Routes/Backoffice/Child.php');
+        include_once app_path('Laravel/Routes/Backoffice/Guardian.php');
     });
 });

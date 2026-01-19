@@ -4,7 +4,7 @@ namespace App\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Str;
+use Str, Carbon\Carbon;
 
 class Guardian extends Model{
 	

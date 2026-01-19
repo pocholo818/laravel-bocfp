@@ -53,6 +53,14 @@ class AdminAccessSeeder extends Seeder
         Permission::create(['name' => 'backoffice.child.update_status', 'description' => "Activating/Deactivating Child Account", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
         Permission::create(['name' => 'backoffice.child.export', 'description' => "PDF/Excel Export", 'module' => "admin", 'module_name' => "Child", 'guard_name' => "admin"]);
 
+        // Guardian
+        Permission::create(['name' => 'backoffice.guardian.index', 'description' => "View Guardian Records", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.guardian.show', 'description' => "Guardian Profile", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.guardian.create', 'description' => "Creating Guardian Account", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.guardian.edit', 'description' => "Editing Guardian Account", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.guardian.update_status', 'description' => "Activating/Deactivating Guardian Account", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.guardian.export', 'description' => "PDF/Excel Export", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
+
         // CMS
         // Permission::create(['name' => 'backoffice.cms.faq.index', 'description' => "View FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);
         // Permission::create(['name' => 'backoffice.cms.faq.create', 'description' => "Creating FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);

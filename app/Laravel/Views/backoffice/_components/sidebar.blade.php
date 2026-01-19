@@ -78,9 +78,9 @@
                             </li>
                         @endif
 
-                        @if($auth->canAny(['backoffice.admin.index'],'admin'))
+                        @if($auth->canAny(['backoffice.guardian.index'],'admin'))
                             <li class="sidebar-list">
-                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.admin.index') }}">
+                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.guardian.index') }}">
                                     <i data-feather="users" class="text-muted"></i>
                                     <span class="pl-5">Guardians </span>
                                 </a>
