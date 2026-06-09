@@ -19,10 +19,10 @@ class AdminAccountSeeder extends Seeder
             $user = new User;
         }
 
-        $user->name = config('app.admin_name');
-        $user->email = config('app.admin_email');
-        $user->username = config('app.admin_username');
-        $user->password = bcrypt(config('app.admin_password'));
+        $user->name = 'BOCFP Admin';
+        $user->email = 'bocfp.admin@bocfp.com';
+        $user->username = 'bocfp_admin';
+        $user->password = 'Bocfp@2023';
         $user->status = "active";
         // $user->is_default_password = "0";
         $user->save();

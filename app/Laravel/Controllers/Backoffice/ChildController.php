@@ -13,7 +13,7 @@ use App\Laravel\Requests\Backoffice\{ChildRequest};
 /*
  * Models
  */
-use App\Laravel\Models\{Child};
+use App\Laravel\Models\{Child, Guardian};
 
 /* App Classes
  */
@@ -32,6 +32,15 @@ class ChildController extends Controller
 
         $this->data['statuses'] = [""=>"-- Select Status --", "active"=>"Active", "inactive"=>"Inactive"];
         $this->data['sexes'] = [""=>"-- Select Sex --", "M"=>"Male", "F"=>"Female"];
+        $this->data['relationships'] = [
+            ""=>"-- Select Relationship --", 
+            "mother" => "Mother",
+            "father" => "Father",
+            "step_parent" => "Step-parent",
+            "adoptive_parent" => "Adoptive Parent",
+            "guardian" => "Guardian",
+            // "other" => "Other"
+        ];
     }
 
     public function index(PageRequest $request)
@@ -100,11 +109,15 @@ class ChildController extends Controller
 
     public function create(PageRequest $request){
         $this->data['page_title'] = " Create Child";
+        $this->data['guardians_exist'] = Guardian::where('status', 'active')
+            ->get()
+            ->pluck('name', 'id')
+            ->toArray();
 
         return view('backoffice.child.create', $this->data);
     }
 
-    public function store(ChildRequest $request){
+    public function store(PageRequest $request){
         DB::beginTransaction();
 
         try{
@@ -113,16 +126,32 @@ class ChildController extends Controller
             $child->last_name = strtoupper(trim($request->input('last_name')));
 
             // set guardian if existed
-            // if($request->input('guardian')){
-            //     $guardian = Guardian::find($request->input('guardian'));
-            //     $child->guardian_id = $guardian->id;
-            //     $child->guardian_first_name = $guardian->first_name;
-            //     $child->guardian_last_name = $guardian->last_name;
-            //     $child->relationship = $request->input('relationship');
-            // }
+            if($request->input('guardian') == "exist_guardian"){
+                $guardian = Guardian::find($request->input('guardian_exist'));
+                $child->guardian_id = $guardian->id;
+                $child->guardian_first_name = $guardian->first_name;
+                $child->guardian_last_name = $guardian->last_name;
+                $child->relationship = $request->input('relationship');
+            }
+
+            // create guardian
+            if($request->input('guardian') == "create_guardian"){
+                $guardian = new Guardian();
+                $guardian->first_name = strtoupper(trim($request->input('guardian_first_name')));
+                $guardian->last_name = strtoupper(trim($request->input('guardian_last_name')));
+                $guardian->contact_number = $request->input('contact_number');
+                $guardian->address = strtoupper(trim($request->input('address')));
+                $guardian->status = "active";
+                $guardian->save();
+
+                $child->guardian_id = $guardian->id;
+                $child->guardian_first_name = $guardian->first_name;
+                $child->guardian_last_name = $guardian->last_name;
+                $child->relationship = $request->input('relationship');
+            }
 
             $child->sex = $request->input('sex');
-            $child->status = $request->input('status');
+            $child->status = 'active';
             $child->save();
 
             DB::commit();
@@ -207,4 +236,18 @@ class ChildController extends Controller
         session()->flash('notification-msg', "Record updated successfully.");
 		return redirect()->back();
 	}
+
+    // APIs
+    public function get_guardians(Pagerequest $request){
+        $keyword = $request->input('keyword');
+
+        $query = Guardian::where('first_name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere(DB::raw("CONCAT(first_name,' ',last_name)"), 'LIKE', '%' . $keyword . '%')
+                        ->orderBy('first_name','asc')
+                        ->limit(5)
+                        ->get();
+
+        return response()->json(['data' => $query, 200]);
+    }
 }
