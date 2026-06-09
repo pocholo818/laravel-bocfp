@@ -151,6 +151,7 @@ class ChildController extends Controller
             }
 
             $child->sex = $request->input('sex');
+            $child->birthdate = $request->input('birthdate');
             $child->status = 'active';
             $child->save();
 
@@ -205,6 +206,7 @@ class ChildController extends Controller
             // }
 
             $child->sex = $request->input('sex');
+            $child->birthdate = $request->input('birthdate');
             $child->status = $request->input('status');
             $child->save();
 

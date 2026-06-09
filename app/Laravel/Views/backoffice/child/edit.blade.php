@@ -62,7 +62,7 @@
                         <div class="mb-3 row">
                             <label class="col-sm-3">Birthdate <b class="text-danger">*</b></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control date-input" id="input_birthdate" value="" name="birthdate" data-date-format="m/d/Y" data-default-date="{{ old('birthdate', $record->birthdate->format('m/d/Y')) }}" placeholder="MM/DD/YYYY">
+                                <input type="text" class="form-control date-input" id="input_birthdate" value="" name="birthdate" data-date-format="m/d/Y" data-default-date="{{ old('birthdate', $record->birthdate?->format('m/d/Y')) }}" placeholder="MM/DD/YYYY">
                                 
                                 @if($errors->first('birthdate'))
                                     <div class="text-left mx-3">

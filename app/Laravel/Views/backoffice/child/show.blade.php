@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-calendar"></i>Birthday</div>
-                        <div>{{ $record->birthdate->format('F d, Y') }}</div>
+                        <div>{{ $record->birthdate?->format('F d, Y') }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
