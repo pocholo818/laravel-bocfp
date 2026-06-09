@@ -36,7 +36,7 @@
                         <div class="mb-3 row">
                             <label class="col-sm-3">First Name  <b class="text-danger">*</b></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control text-uppercase" name="first_name" value="{{ old('first_name') }}" placeholder="Enter First Name">
+                                <input type="text" class="form-control text-capitalize" name="first_name" value="{{ old('first_name') }}" placeholder="Enter First Name">
                                 
                                 @if($errors->first('first_name'))
                                     <div class="text-left mx-3">
