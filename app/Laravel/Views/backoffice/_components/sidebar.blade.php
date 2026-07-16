@@ -38,7 +38,7 @@
 
                     <li class="sidebar-list">
                         <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.index') }}">
+                            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('backoffice.index') ? 'active' : '' }}" href="{{ route('backoffice.index') }}">
                                 <i data-feather="grid" class="text-muted"></i>
                                 <span class="pl-5">Dashboard</span>
                             </a>
@@ -62,7 +62,7 @@
 
                         @if($auth->canAny(['backoffice.admin.index'],'admin'))
                             <li class="sidebar-list">
-                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.admin.index') }}">
+                                <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('backoffice.admin.index') ? 'active' : '' }}" href="{{ route('backoffice.admin.index') }}">
                                     <i data-feather="shield" class="text-muted"></i>
                                     <span class="pl-5">Administrators </span>
                                 </a>
@@ -71,7 +71,7 @@
 
                         @if($auth->canAny(['backoffice.child.index'],'admin'))
                             <li class="sidebar-list">
-                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.child.index') }}">
+                                <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('backoffice.child.index') ? 'active' : '' }}" href="{{ route('backoffice.child.index') }}">
                                     <i data-feather="user" class="text-muted"></i>
                                     <span class="pl-5">Children </span>
                                 </a>
@@ -80,7 +80,7 @@
 
                         @if($auth->canAny(['backoffice.guardian.index'],'admin'))
                             <li class="sidebar-list">
-                                <a class="sidebar-link sidebar-title link-nav" href="{{ route('backoffice.guardian.index') }}">
+                                <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('backoffice.guardian.index') ? 'active' : '' }}" href="{{ route('backoffice.guardian.index') }}">
                                     <i data-feather="users" class="text-muted"></i>
                                     <span class="pl-5">Guardians </span>
                                 </a>
