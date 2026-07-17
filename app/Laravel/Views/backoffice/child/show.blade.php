@@ -40,7 +40,10 @@
             <div class="card-body">
                 <div class="mt-2 d-flex align-items-center">
                     <h3 class="mb-0 me-2 flex-grow-1">
-                        <i class="fa-solid fa-child"></i>{{ $record->name }}
+                        {{ $record->name }}
+                        <div>
+                            <small class="text-muted">{{ $record->age }} {{ Str::plural('year', $record->age) }} old</small>
+                        </div>
                         <div>
                             <p class="fw-light">{{ nice_display($record->role) }}</p>
                         </div>
@@ -54,57 +57,57 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-user-group"></i>Guardian</div>
+                        <div class="mt-4"><i class="fa-solid fa-user-group"></i> Guardian</div>
                         <div>{{ $record->guardian ?? "---" }}</div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-phone"></i>Contact Number</div>
+                        <div class="mt-4"><i class="fa-solid fa-phone"></i> Contact Number</div>
                         <div>{{ $record->guardian?->contact_number ?? "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-calendar"></i>Birthday</div>
+                        <div class="mt-4"><i class="fa-solid fa-calendar"></i> Birthday</div>
                         <div>{{ $record->birthdate?->format('F d, Y') }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-mars-and-venus"></i>Sex</div>
+                        <div class="mt-4"><i class="fa-solid fa-mars-and-venus"></i> Sex</div>
                         <div>{{ display_gender($record->sex) }}</div>
                     </div>
                 </div>
 
+                <hr>
+
+                <h5>Measurements</h5>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i>Height</div>
+                        <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i> Height</div>
                         <div>{{ $record->height > 0 ?: "---" }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-weight-scale"></i>Weight</div>
+                        <div class="mt-4"><i class="fa-solid fa-weight-scale"></i> Weight</div>
                         <div>{{ $record->weight > 0 ?: "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-scale-balanced"></i>BMI</div>
+                        <div class="mt-4"><i class="fa-solid fa-scale-balanced"></i> BMI</div>
                         <div>{{ $record->bmi > 0 ?: "---" }}</div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-user-clock"></i>Age</div>
-                        <div>{{ $record->age }} {{ Str::plural('year', $record->age) }} old</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i>Date Enrolled</div>
+                        <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i> Date Enrolled</div>
                         <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
                     </div>
                 </div>
+
+                <hr>
 
                 <div class="text-end mt-3 d-flex flex-wrap justify-content-end gap-2">
                     @if($auth->canAny(['backoffice.child.update_status'],'admin'))

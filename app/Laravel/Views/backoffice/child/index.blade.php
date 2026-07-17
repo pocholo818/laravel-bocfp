@@ -123,7 +123,12 @@
                 <tbody>
                     @forelse ($records as $index => $record)
                         <tr>
-                            <td><a href="{{route('backoffice.child.show', $record->id)}}">{{ nice_display($record->name) }}</a></td>
+                            <td>
+                                <a href="{{route('backoffice.child.show', $record->id)}}">{{ nice_display($record->name) }}</a>
+                                <div>
+                                    <small class="text-muted">{{ $record->age }} {{ Str::plural('year', $record->age) }} old</small>
+                                </div>
+                            </td>
                             <td>{{ display_gender($record->sex) }}</td>
                             <td>
                                 <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
