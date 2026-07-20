@@ -242,4 +242,46 @@
     .swal2-container .swal2-actions .swal2-confirm:hover{
         background-color: #2EB62C !important;
     }
+
+    /* sidebar active */
+    /* right side indicator */
+    a.sidebar-link.sidebar-title.link-nav.active::after {
+        background-color: #5e3f00 !important;
+    }
+
+    /* background hover/active */
+    .page-wrapper.compact-wrapper .page-body-wrapper 
+        div.sidebar-wrapper .sidebar-main .sidebar-links 
+        .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper 
+        .simplebar-content > li .sidebar-link.active {
+        background-color: #EEEAE5 !important;
+    }
+
+    .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper 
+    .sidebar-main .sidebar-links .simplebar-wrapper 
+    .simplebar-mask .simplebar-content-wrapper 
+    .simplebar-content > li.sidebar-list:hover > a:hover {
+        background-color: #EEEAE5 !important;
+    }
+
+    /* font/svg */
+    .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper 
+    .sidebar-main .sidebar-links .simplebar-wrapper 
+    .simplebar-mask .simplebar-content-wrapper 
+    .simplebar-content > li:hover .sidebar-link:not(.active):hover svg {
+        stroke: #5e3f00 !important;
+    }
+    .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper 
+    .sidebar-main .sidebar-links .simplebar-wrapper 
+    .simplebar-mask .simplebar-content-wrapper 
+    .simplebar-content > li:hover .sidebar-link:not(.active):hover span {
+        color: #5e3f00 !important;
+    }
+
+    .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper 
+    .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask 
+    .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active span {
+        color: #5e3f00 !important;
+    }
+    /* END OF sidebar active */
 </style>

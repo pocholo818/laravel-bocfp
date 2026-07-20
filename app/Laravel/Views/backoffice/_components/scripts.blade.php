@@ -13,7 +13,7 @@
 <!-- Plugins JS start-->
 <script src="{{asset('assets/backoffice/js/sidebar-menu.js')}}"></script>
 <script src="{{asset('assets/backoffice/js/sidebar-pin.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/clock.js')}}"></script>
+{{-- <script src="{{asset('assets/backoffice/js/clock.js')}}"></script> --}}
 <script src="{{asset('assets/backoffice/js/slick/slick.min.js')}}"></script>
 <script src="{{asset('assets/backoffice/js/slick/slick.js')}}"></script>
 <script src="{{asset('assets/backoffice/js/header-slick.js')}}"></script>
