@@ -110,7 +110,8 @@
                 <thead class="tbl-strip-thad-bdr">
                 <tr>
                     <th scope="col" width="13%">Name</th>
-                    <th scope="col" width="10%">Number of Child</th>
+                    <th scope="col" width="13%">Contact Number</th>
+                    <th scope="col" width="10%" class="text-center">Number of Child</th>
                     <th scope="col" width="5%">Status</th>
                     <th scope="col" width="10%">Date Enrolled</th>
                     <th scope="col" width="10%"></th>
@@ -119,8 +120,14 @@
                 <tbody>
                     @forelse ($records as $index => $record)
                         <tr>
-                            <td><a href="{{route('backoffice.guardian.show', $record->id)}}">{{ nice_display($record->name) }}</a></td>
-                            <td>{{ $record->child_count }}</td>
+                            <td>
+                                <a href="{{ route('backoffice.guardian.show', $record->id )}}">{{ nice_display($record->name) }}</a>
+                                <div>
+                                    <small class="text-muted">Purok {{ $record->purok }}</small>
+                                </div>
+                            </td>
+                            <td>{{ $record->contact_number }}</td>
+                            <td class="text-center">{{ $record->child_count }}</td>
                             <td>
                                 <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
                             </td>
