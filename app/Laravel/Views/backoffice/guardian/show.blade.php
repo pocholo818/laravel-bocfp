@@ -28,22 +28,17 @@
         
         <div class="card card-absolute">
             <div class="row">
-                {{-- <a href="{{ asset('placeholder/profile.png') }}}"> --}}
                     <img id="guardian_preview" class="img-fluid mx-auto d-block mt-5 guardian-pic" src="{{ asset('placeholder/profile.png') }}" alt="Guardian Photo Preview">
-                {{-- </a> --}}
             </div>
 
-            <div class="card-header btn-secondary">
+            <div class="card-header card-header-custom">
                 <h5 class="txt-light">Guardian Details</h5>
             </div>
 
             <div class="card-body">
                 <div class="mt-2 d-flex align-items-center">
                     <h3 class="mb-0 me-2 flex-grow-1">
-                        <i class="fa-solid fa-user-group"></i>{{ $record->name }}
-                        {{-- <div>
-                            <p class="fw-light">{{ nice_display($record->role) }}</p>
-                        </div> --}}
+                        {{ $record->name }}
                     </h3>
 
                     <span class="badge bg-{{ status_badge($record->status) }} fs-6">
@@ -54,38 +49,38 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-id-card"></i>Household ID</div>
+                        <div class="mt-4"><i class="fa-solid fa-id-card"></i> Household ID</div>
                         <div>{{ $record->household_id ?: "---" }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-phone"></i>Contact Number</div>
+                        <div class="mt-4"><i class="fa-solid fa-phone"></i> Contact Number</div>
                         <div>{{ $record->contact_number ?: "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-map"></i>Address</div>
+                        <div class="mt-4"><i class="fa-solid fa-map"></i> Address</div>
                         <div>{{ $record->address ?: "---" }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-location-crosshairs"></i>Purok</div>
+                        <div class="mt-4"><i class="fa-solid fa-location-crosshairs"></i> Purok</div>
                         <div>{{ $record->purok ?: "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-children"></i>Total Child</div>
-                        <div>{{ $record->child_count }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-children"></i> Total Child</div>
+                        <div>{{ $record->children->count() }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i>Date Enrolled</div>
+                        <div class="mt-4"><i class="fa-solid fa-calendar"></i> Date Created</div>
                         <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
                     </div>
                 </div>
@@ -99,6 +94,55 @@
             </div>
         </div>
     </div>
+
+    @if($record->children->count() > 0)
+        <div class="col-12 col-md-6">
+            <div class="card card-absolute">
+                <div class="card-header card-header-custom">
+                    <h5 class="txt-light">Children</h5>
+                </div>
+                <div class="d-flex justify-content-end px-3 pt-2">
+                @php 
+                    $show_add_supplier = $auth->canAny(["backoffice.guardian.add_child"],'admin');
+                @endphp
+                @if($show_add_supplier)
+                    <a class="btn btn-secondary mb-0" href="{{ route("backoffice.guardian.add_child", $record->id) }}">+</a>
+                @endif
+            </div>
+
+                <div class="card-body {{ $show_add_supplier ? "table-with-button": "" }}">
+                    <table class="table table-striped table-responsive custom-scrollbar">
+                        <thead class="tbl-strip-thad-bdr">
+                            <tr>
+                                <th scope="col" width="13%">Name</th>
+                                <th scope="col" width="13%">Sex</th>
+                                <th scope="col" width="10%"">Remarks</th>
+                                <th scope="col" width="20%">Date Enrolled</th>
+                                {{-- <th scope="col"></th> --}}
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($record->children as $record)
+                                <tr>
+                                    <td>
+                                        {{ nice_display($record->name) }}
+                                        <div>
+                                            <small class="text-muted">{{ $record->age }} {{ Str::plural('year', $record->age) }} old</small>
+                                        </div>
+                                    </td>
+                                    <td>{{ display_gender($record->sex) }}</td>
+                                    <td>{{ $record->remarks }}</td>
+                                    <td>{{ $record->created_at->format('m/d/Y H:i A') }}</td>
+                                    {{-- <td></td> --}}
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @stop
 

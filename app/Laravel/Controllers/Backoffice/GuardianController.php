@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
  * Request Validator
  */
 use App\Laravel\Requests\PageRequest;
-use App\Laravel\Requests\Backoffice\{GuardianRequest};
+use App\Laravel\Requests\Backoffice\{GuardianRequest, AddChildRequest};
 
 /*
  * Models
  */
-use App\Laravel\Models\{Guardian};
+use App\Laravel\Models\{Guardian, Child};
 
 /* App Classes
  */
@@ -31,6 +31,15 @@ class GuardianController extends Controller
         $this->data['page_title'] .= " Guardian";
 
         $this->data['statuses'] = [""=>"-- Select Status --", "active"=>"Active", "inactive"=>"Inactive"];
+        $this->data['relationships'] = [
+            ""=>"-- Select Relationship --", 
+            "mother" => "Mother",
+            "father" => "Father",
+            "step_parent" => "Step-parent",
+            "adoptive_parent" => "Adoptive Parent",
+            "guardian" => "Guardian",
+            // "other" => "Other"
+        ];
     }
 
     public function index(PageRequest $request)
@@ -192,4 +201,54 @@ class GuardianController extends Controller
         session()->flash('notification-msg', "Record updated successfully.");
 		return redirect()->back();
 	}
+
+    
+    public function add_child(PageRequest $request, $id = NULL){
+        $this->data['page_title'] = " Add new child";
+        
+        $this->data['children'] = Child::whereNull('guardian_id')
+                                    ->where('status', 'active')
+                                    ->get()
+                                    ->pluck('name', 'id')
+                                    ->toArray();
+
+        if(count($this->data['children']) <= 0){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "No child to add.");
+            return redirect()->back();
+        }
+
+        return view('backoffice.guardian.add-child', $this->data);
+    }
+
+    public function store_child(AddChildRequest $request, $id = null){
+        $guardian = Guardian::find($id);
+        $child = Child::find($request->input('child'));
+
+        if(!$guardian || !$child){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+
+        try{
+            $child->guardian_id= $guardian->id;
+            $child->guardian_first_name = $guardian->first_name;
+            $child->guardian_last_name = $guardian->last_name;
+            $child->relationship = $request->input('relationship');
+            $child->save();
+
+            DB::commit();
+            session()->flash('notification-status', 'success');
+            session()->flash('notification-msg', "Guardian created successfully.");
+            return redirect()->route('backoffice.guardian.show', $guardian->id);
+        }catch(\Exception $e){ 
+            DB::rollback();
+            session()->flash('notification-status', 'failed');
+            session()->flash('notification-msg', "Server Error: Code #{$e->getLine()}");
+            return redirect()->back();
+        }
+    }
 }

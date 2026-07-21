@@ -75,4 +75,8 @@ class Guardian extends Model{
     {
         return "{$this->first_name} {$this->last_name}";
     }
+
+	public function children(){
+		return $this->hasMany(Child::class, 'guardian_id', 'id');
+	}
 }
