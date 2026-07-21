@@ -98,6 +98,7 @@
                         <p class="card-text">BMI: {{ round($record->bmi, 2) }}</p>
                         <p class="card-text">Remarks: {{ $record->remarks }}</p>
                         <p class="card-text">Recorded By: {{ nice_display($record?->recorder->name) }}</p>
+                        <hr>
                         <a class="btn btn-warning" href="{{ route('backoffice.record.edit', ['child_id'=>$child->id,'id'=>$record->id]) }}">Edit</a>
                     </div>
                 </div>
