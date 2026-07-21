@@ -87,4 +87,9 @@ class Child extends Model{
 	{
 		return Carbon::parse($this->birthdate)->age;
 	}
+
+	public function bmi_record()
+	{
+        return $this->hasMany(Record::class, 'child_id', 'id');
+	}
 }

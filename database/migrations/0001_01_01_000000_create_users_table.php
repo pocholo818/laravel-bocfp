@@ -23,14 +23,14 @@ return new class extends Migration
             $table->timestamp('last_login_at')->nullable();
             $table->string('status')->nullable()->default('inactive');
             $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestampsTz();
+            $table->softDeletesTz();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestampTz('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {

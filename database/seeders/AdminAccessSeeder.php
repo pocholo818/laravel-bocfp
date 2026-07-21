@@ -61,6 +61,11 @@ class AdminAccessSeeder extends Seeder
         Permission::create(['name' => 'backoffice.guardian.update_status', 'description' => "Activating/Deactivating Guardian Account", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
         Permission::create(['name' => 'backoffice.guardian.export', 'description' => "PDF/Excel Export", 'module' => "admin", 'module_name' => "Guardian", 'guard_name' => "admin"]);
 
+        // Record
+        Permission::create(['name' => 'backoffice.record.index', 'description' => "View Child Records", 'module' => "admin", 'module_name' => "Record", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.record.create', 'description' => "Creating Child Record", 'module' => "admin", 'module_name' => "Record", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.record.edit', 'description' => "Editing Child Record", 'module' => "admin", 'module_name' => "Record", 'guard_name' => "admin"]);
+
         // CMS
         // Permission::create(['name' => 'backoffice.cms.faq.index', 'description' => "View FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);
         // Permission::create(['name' => 'backoffice.cms.faq.create', 'description' => "Creating FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);

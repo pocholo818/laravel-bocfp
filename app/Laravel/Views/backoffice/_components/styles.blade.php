@@ -91,6 +91,14 @@
         background-color: #0032A0 !important;
         border-color: #0032A0 !important;
     }
+    .btn-outline-secondary {
+        border-color: #5e3f00 !important;
+        color: #5e3f00;
+    }
+    .btn-outline-secondary:hover {
+        background-color: #5e3f00 !important;
+        border-color: #5e3f00 !important;
+    }
     .report-logo {
         height: 100px !important;
         width: auto !important;
@@ -284,4 +292,25 @@
         color: #5e3f00 !important;
     }
     /* END OF sidebar active */
+
+    .card-header-custom{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+        color: white!important;
+    }
+
+    .table-with-button{
+        margin-top: -10px !important;   
+    }
+
+    /* pagination */
+    .page-link{
+        color: #5e3f00!important;
+    }
+    .active>.page-link, .page-link.active{
+        background-color: #5e3f00!important;
+        border-color: #5e3f00!important;
+        color: white!important;
+    }
+    /* END OF pagination */
 </style>

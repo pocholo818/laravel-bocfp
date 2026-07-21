@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('guardian_last_name')->nullable();
             $table->string('relationship')->nullable();
             $table->string('status')->nullable()->default('inactive');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestampsTz();
+            $table->softDeletesTz();
         });
     }
 

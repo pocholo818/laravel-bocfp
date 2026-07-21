@@ -18,9 +18,9 @@ return new class extends Migration
             $table->decimal('height',25,2)->nullable();
             $table->decimal('weight',25,2)->nullable();
             $table->decimal('bmi',25,2)->default('0.00')->nullable();
-            $table->text('remarks')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('remarks')->nullable();
+            $table->timestampsTz();
+            $table->softDeletesTz();
         });
     }
 

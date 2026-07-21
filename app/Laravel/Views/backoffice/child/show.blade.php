@@ -33,7 +33,7 @@
                 {{-- </a> --}}
             </div>
 
-            <div class="card-header btn-secondary">
+            <div class="card-header card-header-custom">
                 <h5 class="txt-light">Child Details</h5>
             </div>
 
@@ -68,7 +68,7 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-calendar"></i> Birthday</div>
+                        <div class="mt-4"><i class="fa-solid fa-cake-candles"></i> Birthday</div>
                         <div>{{ $record->birthdate?->format('F d, Y') }}</div>
                     </div>
 
@@ -78,38 +78,51 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-calendar"></i> Date Enrolled</div>
+                        <div>{{ $record->created_at->format('M. d, Y h:i A') }}</div>
+                    </div>
+                </div>
+
                 <hr>
 
                 <h5>Measurements</h5>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i> Height</div>
-                        <div>{{ $record->height > 0 ?: "---" }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i> Height (cm)</div>
+                        <div>{{ $record->height ? round($record->height, 0) : "---" }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="mt-4"><i class="fa-solid fa-weight-scale"></i> Weight</div>
-                        <div>{{ $record->weight > 0 ?: "---" }}</div>
+                        <div class="mt-4"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</div>
+                        <div>{{ $record->weight ? round($record->weight, 0) : "---" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-scale-balanced"></i> BMI</div>
-                        <div>{{ $record->bmi > 0 ?: "---" }}</div>
+                        <div>{{ $record->bmi ? round($record->bmi, 2) : "---" }}</div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="mt-4"><i class="fa-solid fa-comment-medical"></i> Remarks</div>
+                        <div>{{ $record->remarks ?: "---" }}</div>
                     </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-calendar pe-2"></i> Date Enrolled</div>
                         <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
                     </div>
-                </div>
+                </div> --}}
 
                 <hr>
 
                 <div class="text-end mt-3 d-flex flex-wrap justify-content-end gap-2">
+                    <a class="btn btn-info" href="{{ route('backoffice.record.index', $record->id) }}">View All Record</a>
                     @if($auth->canAny(['backoffice.child.update_status'],'admin'))
                         <a class="btn btn-{{ $record->status == "inactive" ? "success" : "danger" }} btn-update-status" href="#" data-url="{{route('backoffice.child.update_status', $record->id)}}">{{ $record->status == "inactive" ? "Activate" : "Deactivate" }}</a>
                     @endif
@@ -118,6 +131,54 @@
             </div>
         </div>
     </div>
+
+    {{-- <div class="col-12 col-md-6">
+        <div class="card card-absolute">
+
+            <div class="card-header card-header-custom">
+                <h5 class="txt-light">Record</h5>
+            </div>
+            <div class="d-flex justify-content-end px-3 pt-2">
+                @php 
+                    $show_add_record = $auth->canAny(["backoffice.child.show"],'admin');
+                @endphp
+                @if($show_add_record)
+                    <a class="btn btn-secondary mb-0" href="{{ route("backoffice.child.show") }}"><i class="fa-solid fa-circle-plus"></i></a>
+                @endif
+            </div>
+
+            <div class="card-body {{ $show_add_record ? "table-with-button": "" }}">
+                <div class="table-responsive custom-scrollbar">
+                    <table class="table">
+                        <thead class="tbl-strip-thad-bdr">
+                            <tr>
+                                <th scope="col" width="15%">Date Recorded</th>
+                                <th scope="col" width="8%">Height</th>
+                                <th scope="col" width="8%">Weight</th>
+                                <th scope="col" width="8%">Remarks</th>
+                                <th scope="col" width="15%">BMI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($record->bmi_record as $record)
+                                <tr>
+                                    <td>{{ $record->created_at->format('m/d/Y h:i A') }}</td>
+                                    <td>{{ $record->height }}cm</td>
+                                    <td>{{ $record->weight }}kg</td>
+                                    <td>{{ $record->remark }}</td>
+                                    <td>{{ $record->bmi }}</td>
+                                </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center">No records found.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 </div>
 @stop
 

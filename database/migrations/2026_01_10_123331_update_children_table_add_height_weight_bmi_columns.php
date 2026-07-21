@@ -15,6 +15,7 @@ return new class extends Migration
             $table->decimal('height',25,2)->default('0.00')->nullable()->after('birthdate')->index();
             $table->decimal('weight',25,2)->default('0.00')->nullable()->after('height')->index();
             $table->decimal('bmi',25,2)->default('0.00')->nullable()->after('weight')->index();
+            $table->string('remarks')->nullable()->after('bmi')->index();
         });
     }
 

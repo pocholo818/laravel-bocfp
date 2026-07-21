@@ -70,4 +70,12 @@ class Record extends Model{
 	 */
 	protected $casts = [
 	];
+
+	public function child(){
+		return $this->belongsTo(Child::class, 'child_id', 'id');
+	}
+
+	public function recorder(){
+		return $this->belongsTo(User::class, 'user_id', 'id');
+	}
 }
