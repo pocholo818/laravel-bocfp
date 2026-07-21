@@ -132,7 +132,7 @@
                                         </div>
                                     </td>
                                     <td>{{ display_gender($record->sex) }}</td>
-                                    <td>{{ $record->remarks }}</td>
+                                    <td>{{ $record->remarks ?: "N/A" }}</td>
                                     <td>{{ $record->created_at->format('m/d/Y H:i A') }}</td>
                                     {{-- <td></td> --}}
                                 </tr>

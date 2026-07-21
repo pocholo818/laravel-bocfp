@@ -58,11 +58,11 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-user-group"></i> Guardian</div>
-                        <div>{{ $record->guardian ?? "---" }}</div>
+                        <div>{{ $record->guardian ?? "N/A" }}</div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-phone"></i> Contact Number</div>
-                        <div>{{ $record->guardian?->contact_number ?? "---" }}</div>
+                        <div>{{ $record->guardian?->contact_number ?? "N/A" }}</div>
                     </div>
                 </div>
 
@@ -91,24 +91,24 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-ruler-vertical"></i> Height (cm)</div>
-                        <div>{{ $record->height ? round($record->height, 0) : "---" }}</div>
+                        <div>{{ $record->height ? round($record->height, 0) : "N/A" }}</div>
                     </div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</div>
-                        <div>{{ $record->weight ? round($record->weight, 0) : "---" }}</div>
+                        <div>{{ $record->weight ? round($record->weight, 0) : "N/A" }}</div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-scale-balanced"></i> BMI</div>
-                        <div>{{ $record->bmi ? round($record->bmi, 2) : "---" }}</div>
+                        <div>{{ $record->bmi ? round($record->bmi, 2) : "N/A" }}</div>
                     </div>
                     
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-comment-medical"></i> Remarks</div>
-                        <div>{{ $record->remarks ?: "---" }}</div>
+                        <div>{{ $record->remarks ?: "N/A" }}</div>
                     </div>
                 </div>
 
