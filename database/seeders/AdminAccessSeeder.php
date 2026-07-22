@@ -67,6 +67,12 @@ class AdminAccessSeeder extends Seeder
         Permission::create(['name' => 'backoffice.record.create', 'description' => "Creating Child Record", 'module' => "admin", 'module_name' => "Record", 'guard_name' => "admin"]);
         Permission::create(['name' => 'backoffice.record.edit', 'description' => "Editing Child Record", 'module' => "admin", 'module_name' => "Record", 'guard_name' => "admin"]);
 
+        // Administrator
+        Permission::create(['name' => 'backoffice.announcement.index', 'description' => "View Announcement Accounts", 'module' => "admin", 'module_name' => "Announcement", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.announcement.show', 'description' => "Announcement Profile", 'module' => "admin", 'module_name' => "Announcement", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.announcement.create', 'description' => "Creating Announcement Account", 'module' => "admin", 'module_name' => "Announcement", 'guard_name' => "admin"]);
+        Permission::create(['name' => 'backoffice.announcement.edit', 'description' => "Editing Announcement Account", 'module' => "admin", 'module_name' => "Announcement", 'guard_name' => "admin"]);
+
         // CMS
         // Permission::create(['name' => 'backoffice.cms.faq.index', 'description' => "View FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);
         // Permission::create(['name' => 'backoffice.cms.faq.create', 'description' => "Creating FAQ", 'module' => "faq", 'module_name' => "FAQ", 'guard_name' => "admin"]);

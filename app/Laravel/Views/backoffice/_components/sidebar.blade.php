@@ -48,9 +48,10 @@
                     {{-- menu --}}
                     @php 
                         $menu_perms = [
+                            'backoffice.announcement.index',
                             'backoffice.admin.index',
-                            // 'backoffice.child.index',
-                            // 'backoffice.guardian.index',
+                            'backoffice.child.index',
+                            'backoffice.guardian.index',
                         ];
                     @endphp
                     @if($auth->canAny($menu_perms,'admin'))
@@ -59,6 +60,15 @@
                                 <h6>Menu</h6>
                             </div>
                         </li>
+
+                        @if($auth->canAny(['backoffice.announcement.index'],'admin'))
+                            <li class="sidebar-list">
+                                <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('backoffice.announcement.index') ? 'active' : '' }}" href="{{ route('backoffice.announcement.index') }}">
+                                    <i data-feather="alert-circle" class="text-muted"></i>
+                                    <span class="pl-5">Announcements </span>
+                                </a>
+                            </li>
+                        @endif
 
                         @if($auth->canAny(['backoffice.admin.index'],'admin'))
                             <li class="sidebar-list">
@@ -88,6 +98,7 @@
                         @endif
                     @endif
 
+                    {{-- spacing --}}
                     <li class="mb-5">
                     </li>
 
