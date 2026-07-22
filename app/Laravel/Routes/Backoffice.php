@@ -24,5 +24,6 @@ Route::group([
         include_once app_path('Laravel/Routes/Backoffice/Child.php');
         include_once app_path('Laravel/Routes/Backoffice/Guardian.php');
         include_once app_path('Laravel/Routes/Backoffice/Record.php');
+        include_once app_path('Laravel/Routes/Backoffice/Announcement.php');
     });
 });
