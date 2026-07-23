@@ -127,7 +127,7 @@
                                 </div>
                             </td>
                             <td>{{ $record->contact_number }}</td>
-                            <td class="text-center">{{ $record->child_count }}</td>
+                            <td class="text-center">{{ $record->children->count() }}</td>
                             <td>
                                 <span class="badge bg-{{status_badge($record->status)}}">{{nice_display($record->status)}}</span>
                             </td>

@@ -251,4 +251,35 @@ class GuardianController extends Controller
             return redirect()->back();
         }
     }
+
+    public function remove_child(PageRequest $request, $id = NULL, $child_id = NULL){
+        $guardian = Guardian::find($id);
+        $child = Child::find($child_id);
+
+        if(!$guardian || !$child){
+            session()->flash('notification-status', 'error');
+            session()->flash('notification-msg', "Record not found.");
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+
+        try{
+            $child->guardian_id= null;
+            $child->guardian_first_name = null;
+            $child->guardian_last_name = null;
+            $child->relationship = null;
+            $child->save();
+
+            DB::commit();
+            session()->flash('notification-status', 'success');
+            session()->flash('notification-msg', "Child removed successfully.");
+            return redirect()->back();
+        }catch(\Exception $e){ 
+            DB::rollback();
+            session()->flash('notification-status', 'failed');
+            session()->flash('notification-msg', "Server Error: Code #{$e->getLine()}");
+            return redirect()->back();
+        }
+    }
 }

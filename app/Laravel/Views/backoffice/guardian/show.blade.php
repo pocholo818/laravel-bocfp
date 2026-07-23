@@ -81,9 +81,11 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="mt-4"><i class="fa-solid fa-calendar"></i> Date Created</div>
-                        <div>{{ $record->created_at->format('m/d/Y h:i A') }}</div>
+                        <div>{{ $record->created_at->format('M. d, Y h:i A') }}</div>
                     </div>
                 </div>
+
+                <hr>
 
                 <div class="text-end mt-3 d-flex flex-wrap justify-content-end gap-2">
                     @if($auth->canAny(['backoffice.guardian.update_status'],'admin'))
@@ -110,19 +112,20 @@
                 @endif
             </div>
 
-                <div class="card-body {{ $show_add_supplier ? "table-with-button": "" }}">
+                <div class="card-body {{ $show_add_supplier ? "table-with-button" : "" }}">
                     <table class="table table-striped table-responsive custom-scrollbar">
                         <thead class="tbl-strip-thad-bdr">
                             <tr>
-                                <th scope="col" width="13%">Name</th>
-                                <th scope="col" width="13%">Sex</th>
-                                <th scope="col" width="10%"">Remarks</th>
+                                <th scope="col" width="30%">Name</th>
+                                <th scope="col" width="10%">Sex</th>
+                                <th scope="col" width="30%">Remarks</th>
                                 <th scope="col" width="20%">Date Enrolled</th>
-                                {{-- <th scope="col"></th> --}}
+                                <th scope="col" width="10%"></th>
                             </tr>
                         </thead>
 
                         <tbody>
+                            @php $guardian = $record->id; @endphp
                             @foreach($record->children as $record)
                                 <tr>
                                     <td>
@@ -134,7 +137,20 @@
                                     <td>{{ display_gender($record->sex) }}</td>
                                     <td>{{ $record->remarks ?: "N/A" }}</td>
                                     <td>{{ $record->created_at->format('m/d/Y H:i A') }}</td>
-                                    {{-- <td></td> --}}
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item active" target="__blank" href="{{ route('backoffice.child.show', $record->id) }}">View Details</a>
+                                                @if($auth->canAny(['backoffice.guardian.remove_child'],'admin'))
+                                                    <a class="dropdown-item active btn-remove-child" data-bs-toggle="modal" data-bs-target="#tooltipmodal" href="#"
+                                                            data-url="{{ route('backoffice.guardian.remove_child', ['id'=>$guardian,'child_id'=>$record->id]) }}">
+                                                        Remove Child
+                                                    </a>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -156,39 +172,15 @@
 
 @section('page-scripts')
 <script>
-    $(".btn-reset-admin").on('click', function(){
+    $(".btn-remove-child").on('click', function(){
         var url = $(this).data('url');
 
         Swal.fire({
-            title: 'Are you sure you want to reset password of this account?',
-            icon: 'question',
+            title: 'Are you sure you want to remove child?',
+            icon: 'warning',
             showCancelButton: true,
             showLoaderOnConfirm: true,
             confirmButtonText: 'Yes',
-            customClass: {
-                cancelButton: 'btn btn-danger',
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = url;
-            }
-        });
-    });
-
-    $(".btn-update-status").on('click', function(){
-
-        var url = $(this).data('url');
-        var status = $(this).data('status');
-
-        Swal.fire({
-            title: status === 'active' ? 'Are you sure you want to deactivate this record?' : 'Are you sure you want to activate this record?',
-            icon: 'question',
-            showCancelButton: true,
-            showLoaderOnConfirm: true,
-            confirmButtonText: 'Yes',
-            customClass: {
-                cancelButton: 'btn btn-danger',
-            },
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = url;
