@@ -11,4 +11,5 @@ Route::group(['prefix'=>"guardian", 'as'=>"guardian.", 'controller'=>"GuardianCo
     Route::get('{id?}',['as'=>"show", 'uses'=>"show",'middleware' => "backoffice.permission:backoffice.guardian.index"]);
     Route::get('{id?}/add-child',['as'=>"add_child", 'uses'=>"add_child",'middleware' => "backoffice.permission:backoffice.guardian.add_child"]);
     Route::post('{id?}/add-child',['uses'=>"store_child",'middleware' => "backoffice.permission:backoffice.guardian.add_child"]);
+    Route::get('{id?}/remove-child/{child_id?}',['as'=>"remove_child", 'uses'=>"remove_child",'middleware' => "backoffice.permission:backoffice.guardian.remove_child"]);
 });
